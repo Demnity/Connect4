@@ -2,10 +2,36 @@ body {
     background: #33333d;
 }
 
-#opponent {
-    float: right;   
+.ring {
+    width: 50;
+    height: 50;
+    border-radius: 100%;
 }
 
-#opponent:hover {
-    
+.ring .center {
+    position: relative;
+    background-color: #33333d;
+    width: 30;
+    height: 30;
+    top: 20%;
+    left: 20%;
+    border-radius: 100%;
+}
+
+#leftPlayer {
+    float: left;  
+    background-color: #dabb35; 
+}
+
+#leftPlayer:hover {
+    cursor: pointer;
+}
+
+#rightPlayer {
+    float: right;  
+    background-color: #30cfa0; 
+}
+
+#rightPlayer:hover {
+    cursor: pointer;
 }
