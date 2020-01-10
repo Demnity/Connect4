@@ -3,5 +3,9 @@ body {
 }
 
 #opponent {
-    BBBBBB
+    float: right;   
+}
+
+#opponent:hover {
+    
 }
