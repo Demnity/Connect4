@@ -2,6 +2,13 @@
 	float: left;
 }
 
+header {
+	overflow: auto;
+}
+
+body {
+	background-color: #33333d;
+}
 .option {
 	float: right;
 }
@@ -20,5 +27,26 @@
 	padding-left: 10px;
 }
 main img {
-	height: 650px;
+	height: 350px;
+	display: block;
+	margin: auto;
+	margin-top: 50px;
+}
+
+.button {
+	text-align: center;
+	margin-top: 50px;
+}
+
+button {
+  	width: 200px;
+  	height: 90px;
+  	background-color: #33333d;
+  	border: 2px solid white;
+  	color: white;
+  	padding: auto;
+  	text-align: center;
+ 	font-size: 4em;
+ 	font-family: 'Patrick Hand', cursive;
+  	cursor: pointer;
 }
