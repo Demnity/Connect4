@@ -35,7 +35,15 @@ header {
 }
 #leftPlayer {
     float: left;  
+}
+
+#leftPlayer .ring {
     background-color: #dabb35; 
+    float: left;
+}
+
+#leftPlayer p {
+    float: right;
 }
 
 #leftPlayer:hover {
@@ -44,7 +52,15 @@ header {
 
 #rightPlayer {
     float: right;  
+}
+
+#rightPlayer .ring {
     background-color: #30cfa0; 
+    float: right;
+}
+
+#rightPlayer p {
+    float: left;
 }
 
 #rightPlayer:hover {
