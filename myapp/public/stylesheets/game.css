@@ -116,7 +116,7 @@ main {
 .gameInfo #playerTurn {
     text-align: center;
     color: #dabb35;
-	padding-top: 80px;
+	padding-top: 3%;
 	font-family: 'Amatic SC', cursive;
 	font-size: 1.5em;
 }
