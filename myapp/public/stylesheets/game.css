@@ -7,7 +7,7 @@ main {
     height: 75%;
 }
 
-.col, .ring {
+.ring {
     width: 40;
     height: 40;
     background-color: transparent;
@@ -23,6 +23,8 @@ main {
     background-color: transparent;
     border-radius: 100%;
     border: 8px solid transparent;
+    display: inline-block;
+    margin: 3px;
 }
 
 .ring:hover, .top-ring:hover {
