@@ -33,11 +33,16 @@ header {
     margin-top: 5px;
     float: right;
 }
+
+main {
+    height: 70%;
+}
+
 #leftPlayer {
     position: relative;
     padding-left: 10px;
     float: left; 
-    top: 330px; 
+    top: 50%; 
 }
 
 #leftPlayer .ring {
