@@ -18,6 +18,9 @@ body {
     border-radius: 100%;
 }
 
+#icon img {
+    height: 80px;
+}
 #leftPlayer {
     float: left;  
     background-color: #dabb35; 
