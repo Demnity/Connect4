@@ -7,28 +7,13 @@ main {
 }
 
 .ring {
-    width: 50;
-    height: 50;
-    background-color: #fff;
+    width: 40;
+    height: 40;
+    background-color: transparent;
+    border: 8px solid #fff;
     border-radius: 100%;
 }
 
-.top-ring {
-    width: 50;
-    height: 50;
-    background-color: #33333d;
-    border-radius: 100%;
-}
-
-.ring .center {
-    position: relative;
-    background-color: #33333d;
-    width: 30;
-    height: 30;
-    top: 20%;
-    left: 20%;
-    border-radius: 100%;
-}
 
 header {
     overflow: auto;
@@ -58,7 +43,7 @@ main {
 }
 
 #leftPlayer .ring {
-    background-color: #dabb35; 
+    border: 8px solid #dabb35;
     float: left;
 }
 
@@ -83,7 +68,7 @@ main {
 }
 
 #rightPlayer .ring {
-    background-color: #30cfa0; 
+    border: 8px solid#30cfa0; 
     float: right;
 }
 
@@ -128,3 +113,5 @@ main {
 	font-family: 'Amatic SC', cursive;
 	font-size: 1.5em;
 }
+
+
