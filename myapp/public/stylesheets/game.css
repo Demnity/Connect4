@@ -34,7 +34,10 @@ header {
     float: right;
 }
 #leftPlayer {
-    float: left;  
+    position: relative;
+    padding-left: 10px;
+    float: left; 
+    top: 330px; 
 }
 
 #leftPlayer .ring {
@@ -43,6 +46,11 @@ header {
 }
 
 #leftPlayer p {
+    padding-left: 10px;
+    color: white;
+	margin-top: 7%;
+	font-family: 'Amatic SC', cursive;
+	font-size: 1.5em;
     float: right;
 }
 
@@ -51,7 +59,10 @@ header {
 }
 
 #rightPlayer {
+    position: relative;
+    padding-right: 10px;
     float: right;  
+    top: 330px;
 }
 
 #rightPlayer .ring {
@@ -60,6 +71,11 @@ header {
 }
 
 #rightPlayer p {
+    padding-right: 10px;
+    color: white;
+	margin-top: 7%;
+	font-family: 'Amatic SC', cursive;
+	font-size: 1.5em;
     float: left;
 }
 
