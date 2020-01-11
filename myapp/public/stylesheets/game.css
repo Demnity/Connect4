@@ -18,8 +18,20 @@ body {
     border-radius: 100%;
 }
 
-#icon img {
+header {
+    overflow: auto;
+}
+
+#icon .logo {
     height: 80px;
+    float: left;
+}
+
+#icon .home, #icon .volume{
+    height: 45px;
+    margin-right: 5px;
+    margin-top: 5px;
+    float: right;
 }
 #leftPlayer {
     float: left;  
