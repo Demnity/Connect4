@@ -13,6 +13,13 @@ main {
     border-radius: 100%;
 }
 
+.top-ring {
+    width: 50;
+    height: 50;
+    background-color: #33333d;
+    border-radius: 100%;
+}
+
 .ring .center {
     position: relative;
     background-color: #33333d;
@@ -94,7 +101,7 @@ main {
 }
 
 #board {
-    padding-top: 10%;
+    padding-top: 3%;
 }
 
 .wrapper {
@@ -102,6 +109,22 @@ main {
     align-items: center;
     justify-content: center;
     grid-template-columns: repeat(7, 60px);
-    grid-template-rows: repeat(6, 60px);
+    grid-template-rows: repeat(7, 60px); // 7 rows : top row is temporary hover
 
+}
+
+.gameInfo #playerTurn {
+    text-align: center;
+    color: #dabb35;
+	padding-top: 80px;
+	font-family: 'Amatic SC', cursive;
+	font-size: 1.5em;
+}
+
+.gameInfo #timer {
+    text-align: center;
+    color: white;
+	padding-top: 5px;
+	font-family: 'Amatic SC', cursive;
+	font-size: 1.5em;
 }
