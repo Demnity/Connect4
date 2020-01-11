@@ -2,9 +2,14 @@ body {
     background: #33333d;
 }
 
+main {
+    height: 75%;
+}
+
 .ring {
     width: 50;
     height: 50;
+    background-color: #fff;
     border-radius: 100%;
 }
 
@@ -37,7 +42,7 @@ header {
     position: relative;
     padding-left: 10px;
     float: left; 
-    top: 330px; 
+    top: 50%; 
 }
 
 #leftPlayer .ring {
@@ -62,7 +67,7 @@ header {
     position: relative;
     padding-right: 10px;
     float: right;  
-    top: 330px;
+    top: 50%;
 }
 
 #rightPlayer .ring {
@@ -81,4 +86,17 @@ header {
 
 #rightPlayer:hover {
     cursor: pointer;
+}
+
+#board {
+    padding-top: 10%;
+}
+
+.wrapper {
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    grid-template-columns: repeat(7, 60px);
+    grid-template-rows: repeat(6, 60px);
+
 }
