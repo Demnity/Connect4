@@ -38,6 +38,11 @@ header {
     margin-top: 5px;
     float: right;
 }
+
+main {
+    height: 70%;
+}
+
 #leftPlayer {
     position: relative;
     padding-left: 10px;
