@@ -9,6 +9,13 @@ var app = express();
 app.use(express.static(__dirname + "/public"));
 http.createServer(app).listen(port);
 
+app.get('/', function(req, res) {
+	res.sendFile("splash.html", {root: "./public"});
+})
+
+app.get("/play", function(req,res) {
+	res.sendFile("game.html", {root: "./public"});
+})
 
 /*var createError = require('http-errors');
 var express = require('express');

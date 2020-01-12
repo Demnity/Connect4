@@ -16,11 +16,9 @@ class Board {
           .addClass("ring")
           .attr("row", "" + i)
           .attr("col", "" + j);
-
         if (i == 0) {
           $col.attr("class", "top-ring");
         }
-
         $row.append($col);
       }
       $board.append($row);
