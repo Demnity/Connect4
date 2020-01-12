@@ -4,6 +4,7 @@ class Board {
 		this.col = 7
 		this.board = board
 		this.createBoard()
+		this.listenMouseEvent()
 	}
 
 	createBoard() {
@@ -11,7 +12,7 @@ class Board {
 		for(let i = 0; i < this.row; i++){
 			var $row = $('<div>').addClass('row');
 			for(let j = 0; j < this.col; j++){
-				var $col = $('<div>').addClass('ring').attr("row", "" + i).attr("col", "" + j);
+				var $col = $('<div>').addClass('ring empty').attr("row", "" + i).attr("col", "" + j);
 
 				if(i == 0){
 					$col.attr("class", "top-ring");
@@ -22,4 +23,30 @@ class Board {
 			$board.append($row)
 		}
 	}
+
+
+	listenMouseEvent() {
+		function findEmptyRing(colValue) {
+			let col = $('[col='+colValue+']')
+			for(let i = col.length - 1; i > 0; i--){
+				if($(col[i]).hasClass('empty'))
+					return col[i]
+			}
+			return null
+		}
+
+		$("[col]").mouseenter(function(event) {
+        	let colValue = event.target.getAttribute("col");
+        	$("[row = 0][col="+colValue+"]").css("border-color", "turquoise");
+        	let emptyRing = findEmptyRing(colValue)
+        	console.log(emptyRing)
+   		});
+
+   		$("[col]").mouseout(function(event) {
+        	let colValue = event.target.getAttribute("col");
+        	$("[row = 0][col="+colValue+"]").css("border-color", "transparent");
+   		});
+	}
+
+	
 } 
