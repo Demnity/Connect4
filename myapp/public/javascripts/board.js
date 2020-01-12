@@ -51,8 +51,7 @@ class Board {
    			let colValue = event.target.getAttribute("col");
    			let rowValue = event.target.getAttribute("row");
    			let emptyRing = findEmptyRing(colValue);
-   			colValue = emptyRing.getAttribute("col");
-   			$("[row = "+rowValue+"][col="+colValue+"]").css("border-color", "turquoise");
+   			$(emptyRing).css("border-color", "turquoise");
    		})
 	}
 
