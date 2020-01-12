@@ -27,9 +27,9 @@ main {
     margin: 3px;
 }
 
-.ring:hover, .top-ring:hover {
+/*.ring:hover, .top-ring:hover {
     border-color: turquoise;
-}
+}*/
 
 header {
     overflow: auto;

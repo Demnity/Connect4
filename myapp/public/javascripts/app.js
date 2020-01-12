@@ -3,4 +3,18 @@ var main = function() {
 	console.log('hello')
 }
 
-$(document).ready(main)
+var i = 0;
+
+
+$(document).ready(function(){
+    main();
+    $("[col]").mouseenter(function(event) {
+        let colValue = event.target.getAttribute("col");
+        $("[row = 0][col="+colValue+"]").css("border-color", "turquoise");
+    });
+    $("[col]").mouseout(function(event) {
+        let colValue = event.target.getAttribute("col");
+        $("[row = 0][col="+colValue+"]").css("border-color", "transparent");
+    });
+});
+
