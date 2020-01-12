@@ -29,7 +29,7 @@ class Board {
 		function findEmptyRing(colValue) {
 			let col = $('[col='+colValue+']')
 			for(let i = col.length - 1; i > 0; i--){
-				if($(col[i]).css('border-color') == 'rgb(255, 255, 255)')
+				if($(col[i]).css('border-top-color') == 'rgb(255, 255, 255)')
 					return col[i]
 			}
 			return null
