@@ -13,7 +13,7 @@ var server = http.createServer(app);
 
 const wss = new websocket.Server({ server });
 
-wss.on("open", function(ws) {
+wss.on("listening", function(ws) {
   console.log("YESY");
   console.log(wss.address())
 });
