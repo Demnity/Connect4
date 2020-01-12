@@ -26,21 +26,17 @@ class Board {
 
 
 	listenMouseEvent() {
-		function findEmptyRing(colValue) {
-			let col = $('[col='+colValue+']')
-			for(let i = col.length - 1; i > 0; i--){
-				if($(col[i]).css('border-top-color') == 'rgb(255, 255, 255)')
-					return col[i]
-			}
-			return null
-		}
-
 		function dropAnimation(colValue) {
 			let col = $('[col='+colValue+']')
 			for(let i = 1; i < col.length; i++){
 				let $colNext = $(col[i + 1])
 				let $col = $(col[i])
-				if(($colNext.css('border-top-color') == 'rgb(255, 255, 255)')){
+				//check turquoise color if it had reached the top
+				if($col.css('border-top-color') == 'rgb(64, 224, 208)')
+					break;
+				let color = $colNext.css('border-top-color')
+				//check white color
+				if(color == 'rgb(255, 255, 255)'){
 					setTimeout(function(){
 						$col.css('border-color', 'turquoise')
 					}, i*100)
@@ -52,16 +48,15 @@ class Board {
 					setTimeout(function(){
 						$col.css('border-color', 'turquoise')
 					}, i*100)
+					return true;
 				}
 			}
-			return null;
+			return false;
 		}
 
 		$("[col]").mouseenter(function(event) {
         	let colValue = event.target.getAttribute("col");
         	$("[row = 0][col="+colValue+"]").css("border-color", "turquoise");
-        	let emptyRing = findEmptyRing(colValue)
-        	console.log(emptyRing)
    		});
 
    		$("[col]").mouseout(function(event) {
@@ -73,6 +68,7 @@ class Board {
    			let colValue = event.target.getAttribute("col");
    			let rowValue = event.target.getAttribute("row");
    			let emptyRing = dropAnimation(colValue);
+   			console.log(emptyRing)
    		})
 	}
 
