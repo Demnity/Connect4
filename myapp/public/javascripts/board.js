@@ -39,15 +39,15 @@ class Board {
 				if(color == 'rgb(255, 255, 255)'){
 					setTimeout(function(){
 						$col.css('border-color', 'turquoise')
-					}, i*100)
+					}, i*20)
 					setTimeout(function(){
 						$col.css('border-color', 'white')
-					}, i*100 + 100)
+					}, i*20 + 20)
 				}
 				else {
 					setTimeout(function(){
 						$col.css('border-color', 'turquoise')
-					}, i*100)
+					}, i*20)
 					return true;
 				}
 			}

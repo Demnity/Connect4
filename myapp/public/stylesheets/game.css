@@ -7,7 +7,7 @@ main {
     height: 75%;
 }
 
-.ring {
+.ring, .top-ring {
     width: 40;
     height: 40;
     background-color: transparent;
@@ -18,14 +18,8 @@ main {
     cursor: pointer;
 }
 
-.top-ring {
-    width: 40;
-    height: 40;
-    background-color: transparent;
-    border-radius: 100%;
+.top-ring { 
     border: 8px solid transparent;
-    display: inline-block;
-    margin: 3px;
 }
 
 /*.ring:hover, .top-ring:hover {
@@ -73,10 +67,6 @@ main {
     float: right;
 }
 
-#leftPlayer:hover {
-    cursor: pointer;
-}
-
 #rightPlayer {
     position: relative;
     padding-right: 10px;
@@ -96,10 +86,6 @@ main {
 	font-family: 'Amatic SC', cursive;
 	font-size: 1.5em;
     float: left;
-}
-
-#rightPlayer:hover {
-    cursor: pointer;
 }
 
 #board {
