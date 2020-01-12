@@ -12,7 +12,7 @@ class Board {
 		for(let i = 0; i < this.row; i++){
 			var $row = $('<div>').addClass('row');
 			for(let j = 0; j < this.col; j++){
-				var $col = $('<div>').addClass('ring empty').attr("row", "" + i).attr("col", "" + j);
+				var $col = $('<div>').addClass('ring').attr("row", "" + i).attr("col", "" + j);
 
 				if(i == 0){
 					$col.attr("class", "top-ring");
@@ -29,7 +29,7 @@ class Board {
 		function findEmptyRing(colValue) {
 			let col = $('[col='+colValue+']')
 			for(let i = col.length - 1; i > 0; i--){
-				if($(col[i]).hasClass('empty'))
+				if($(col[i]).css('border-color') == 'rgb(255, 255, 255)')
 					return col[i]
 			}
 			return null
@@ -46,6 +46,14 @@ class Board {
         	let colValue = event.target.getAttribute("col");
         	$("[row = 0][col="+colValue+"]").css("border-color", "transparent");
    		});
+
+   		$("[col]").click(function(event){
+   			let colValue = event.target.getAttribute("col");
+   			let rowValue = event.target.getAttribute("row");
+   			let emptyRing = findEmptyRing(colValue);
+   			colValue = emptyRing.getAttribute("col");
+   			$("[row = "+rowValue+"][col="+colValue+"]").css("border-color", "turquoise");
+   		})
 	}
 
 	
