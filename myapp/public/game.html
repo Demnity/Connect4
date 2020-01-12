@@ -1,44 +1,37 @@
 <html>
-<head>
+  <head>
     <link rel="stylesheet" href="stylesheets/game.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-</head>
-<body>
+  </head>
+  <body>
     <header>
-        <div id="icon">
-            <img src="images/logo.png" class="logo">
-            <img src="images/home.png" class="home">
-            <img src="images/volume.png" class="volume">
-        </div>
+      <div id="icon">
+        <img src="images/logo.png" class="logo" />
+        <img src="images/home.png" class="home" />
+        <img src="images/volume.png" class="volume" />
+      </div>
     </header>
 
     <main>
-        <div id="leftPlayer">
-            <div class="ring" >
-               
-            </div>
-            <p>Player 1</p>
-        </div>
+      <div id="leftPlayer">
+        <div class="ring"></div>
+        <p>Player 1</p>
+      </div>
 
-        <div id="rightPlayer">
-            <p>Player 2</p>
-            <div class="ring">
-                
-            </div>
-        </div>
+      <div id="rightPlayer">
+        <p>Player 2</p>
+        <div class="ring"></div>
+      </div>
 
-        <section class="gameInfo">
-            <div id="playerTurn">Player 1</div>
-            <div id="timer">55:55</div>
-        </section>
+      <section class="gameInfo">
+        <div id="playerTurn">Player 1</div>
+        <div id="timer">55:55</div>
+      </section>
 
-
-        <div class="wrapper" id="board">
-        </div>
-
+      <div class="wrapper" id="board"></div>
     </main>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="javascripts/app.js"></script>
     <script src="javascripts/board.js"></script>
-</body>
+  </body>
 </html>

@@ -1,25 +1,26 @@
 body {
-    background: #33333d;
-    text-align: center;
+  background: #33333d;
+  text-align: center;
 }
 
 main {
-    height: 75%;
+  height: 75%;
 }
 
-.ring, .top-ring {
-    width: 40;
-    height: 40;
-    background-color: transparent;
-    border: 8px solid #fff;
-    border-radius: 100%;
-    display: inline-block;
-    margin: 3px;
-    cursor: pointer;
+.ring,
+.top-ring {
+  width: 40;
+  height: 40;
+  background-color: transparent;
+  border: 8px solid #fff;
+  border-radius: 100%;
+  display: inline-block;
+  margin: 3px;
+  cursor: pointer;
 }
 
-.top-ring { 
-    border: 8px solid transparent;
+.top-ring {
+  border: 8px solid transparent;
 }
 
 /*.ring:hover, .top-ring:hover {
@@ -27,85 +28,84 @@ main {
 }*/
 
 header {
-    overflow: auto;
+  overflow: auto;
 }
 
 #icon .logo {
-    height: 80px;
-    float: left;
+  height: 80px;
+  float: left;
 }
 
-#icon .home, #icon .volume{
-    height: 45px;
-    margin-right: 5px;
-    margin-top: 5px;
-    float: right;
+#icon .home,
+#icon .volume {
+  height: 45px;
+  margin-right: 5px;
+  margin-top: 5px;
+  float: right;
 }
 
 main {
-    height: 70%;
+  height: 70%;
 }
 
 #leftPlayer {
-    position: relative;
-    padding-left: 10px;
-    float: left; 
-    top: 50%; 
+  position: relative;
+  padding-left: 10px;
+  float: left;
+  top: 50%;
 }
 
 #leftPlayer .ring {
-    border: 8px solid #dabb35;
-    float: left;
+  border: 8px solid #dabb35;
+  float: left;
 }
 
 #leftPlayer p {
-    padding-left: 10px;
-    color: white;
-	margin-top: 7%;
-	font-family: 'Amatic SC', cursive;
-	font-size: 1.5em;
-    float: right;
+  padding-left: 10px;
+  color: white;
+  margin-top: 7%;
+  font-family: "Amatic SC", cursive;
+  font-size: 1.5em;
+  float: right;
 }
 
 #rightPlayer {
-    position: relative;
-    padding-right: 10px;
-    float: right;  
-    top: 50%;
+  position: relative;
+  padding-right: 10px;
+  float: right;
+  top: 50%;
 }
 
 #rightPlayer .ring {
-    border: 8px solid#30cfa0; 
-    float: right;
+  border: 8px solid#30cfa0;
+  float: right;
 }
 
 #rightPlayer p {
-    padding-right: 10px;
-    color: white;
-	margin-top: 7%;
-	font-family: 'Amatic SC', cursive;
-	font-size: 1.5em;
-    float: left;
+  padding-right: 10px;
+  color: white;
+  margin-top: 7%;
+  font-family: "Amatic SC", cursive;
+  font-size: 1.5em;
+  float: left;
 }
 
 #board {
-    padding-top: 2%;
+  padding-top: 2%;
 }
 
 .gameInfo #playerTurn {
-    text-align: center;
-    color: #dabb35;
-	padding-top: 3%;
-	font-family: 'Amatic SC', cursive;
-	font-size: 1.5em;
+  text-align: center;
+  color: #dabb35;
+  padding-top: 3%;
+  font-family: "Amatic SC", cursive;
+  font-size: 1.5em;
 }
 
 .gameInfo #timer {
-    text-align: center;
-    color: white;
-	padding-top: 5px;
-	font-family: 'Amatic SC', cursive;
-	font-size: 1.5em;
+  text-align: center;
+  color: white;
+  padding-top: 5px;
+  font-family: "Amatic SC", cursive;
+  font-size: 1.5em;
 }
-
-
