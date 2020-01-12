@@ -35,6 +35,26 @@ class Board {
 			return null
 		}
 
+		function dropAnimation(colValue) {
+			let col = $('[col='+colValue+']')
+			for(let i = 1; i < col.length; i++){
+				let $colNext = $(col[i + 1])
+				let $col = $(col[i])
+				if(($colNext.css('border-top-color') == 'rgb(255, 255, 255)')){
+					$col.css("border-color", "turquoise")
+					setTimeout(function(){
+						if(i == 0) $col.css('border-color', 'transparent')
+						else $col.css('border-color', 'white')
+					}, 500)
+				}
+				else {
+					return $col;
+					
+				}
+			}
+			return null;
+		}
+
 		$("[col]").mouseenter(function(event) {
         	let colValue = event.target.getAttribute("col");
         	$("[row = 0][col="+colValue+"]").css("border-color", "turquoise");
@@ -50,8 +70,8 @@ class Board {
    		$("[col]").click(function(event){
    			let colValue = event.target.getAttribute("col");
    			let rowValue = event.target.getAttribute("row");
-   			let emptyRing = findEmptyRing(colValue);
-   			$(emptyRing).css("border-color", "turquoise");
+   			let emptyRing = dropAnimation(colValue);
+   			emptyRing.css("border-color", "black");
    		})
 	}
 
