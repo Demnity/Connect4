@@ -41,15 +41,17 @@ class Board {
 				let $colNext = $(col[i + 1])
 				let $col = $(col[i])
 				if(($colNext.css('border-top-color') == 'rgb(255, 255, 255)')){
-					$col.css("border-color", "turquoise")
 					setTimeout(function(){
-						if(i == 0) $col.css('border-color', 'transparent')
-						else $col.css('border-color', 'white')
-					}, 500)
+						$col.css('border-color', 'turquoise')
+					}, i*100)
+					setTimeout(function(){
+						$col.css('border-color', 'white')
+					}, i*100 + 100)
 				}
 				else {
-					return $col;
-					
+					setTimeout(function(){
+						$col.css('border-color', 'turquoise')
+					}, i*100)
 				}
 			}
 			return null;
@@ -71,7 +73,6 @@ class Board {
    			let colValue = event.target.getAttribute("col");
    			let rowValue = event.target.getAttribute("row");
    			let emptyRing = dropAnimation(colValue);
-   			emptyRing.css("border-color", "black");
    		})
 	}
 
