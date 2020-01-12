@@ -9,7 +9,16 @@ var port = process.argv[2];
 var app = express();
 
 app.use(express.static(__dirname + "/public"));
-http.createServer(app).listen(port);
+var server = http.createServer(app);
+
+const wss = new websocket.Server({ server });
+
+wss.on("open", function(ws) {
+  console.log("YESY");
+  console.log(wss.address())
+});
+
+server.listen(port);
 
 
 /*var createError = require('http-errors');
