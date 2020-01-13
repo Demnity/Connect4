@@ -26,25 +26,27 @@ class Board {
   }
 
   listenMouseEvent() {
-    function dropAnimation(colValue) {
+    function dropAnimation(colValue, pColor) {
       let col = $("[col=" + colValue + "]");
       for (let i = 1; i < col.length; i++) {
         let $colNext = $(col[i + 1]);
         let $col = $(col[i]);
-        //check turquoise color if it had reached the top
-        if ($col.css("border-top-color") == "rgb(64, 224, 208)") break;
+        
+        //Have to change this vvv
+        
+        if ($col.css("border-top-color") == pColor) break; 
         let color = $colNext.css("border-top-color");
         //check white color
         if (color == "rgb(255, 255, 255)") {
           setTimeout(function() {
-            $col.css("border-color", "turquoise");
+            $col.css("border-color", pColor);
           }, i * 20);
           setTimeout(function() {
             $col.css("border-color", "white");
           }, i * 20 + 20);
         } else {
           setTimeout(function() {
-            $col.css("border-color", "turquoise");
+            $col.css("border-color", pColor);
           }, i * 20);
           return true;
         }
@@ -52,21 +54,42 @@ class Board {
       return false;
     }
 
+    $("[col]").click(function(event, color) {
+      let colValue = event.target.getAttribute("col");
+      let rowValue = event.target.getAttribute("row");
+      let emptyRing = dropAnimation(colValue, color);
+      console.log(emptyRing);
+    });
+  }
+}
+
+
+class Player {
+  constructor(color) {
+    this.color = color;
+    this.ingameListener(this);
+    
+  }
+
+  ingameListener(player) {
     $("[col]").mouseenter(function(event) {
       let colValue = event.target.getAttribute("col");
-      $("[row = 0][col=" + colValue + "]").css("border-color", "turquoise");
+      $("[row = 0][col=" + colValue + "]").css("border-color", player.color);
     });
 
     $("[col]").mouseout(function(event) {
       let colValue = event.target.getAttribute("col");
       $("[row = 0][col=" + colValue + "]").css("border-color", "transparent");
     });
-
-    $("[col]").click(function(event) {
-      let colValue = event.target.getAttribute("col");
-      let rowValue = event.target.getAttribute("row");
-      let emptyRing = dropAnimation(colValue);
-      console.log(emptyRing);
-    });
   }
+}
+
+class Game {
+  constructor(gameId, board, playerA, playerB){
+    this.playerA = playerA;
+    this.playerB = playerB;
+    this.board = board;
+    this.gameId = gameId;
+  }
+
 }
