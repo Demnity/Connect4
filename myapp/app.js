@@ -9,6 +9,7 @@ var port = process.argv[2];
 var app = express();
 
 app.use(express.static(__dirname + "/public"));
+<<<<<<< Updated upstream
 var server = http.createServer(app);
 
 const wss = new websocket.Server({ server });
@@ -19,14 +20,15 @@ wss.on("listening", function(ws) {
 });
 
 server.listen(port);
+=======
 
-app.get('/', function(req, res) {
-	res.sendFile("splash.html", {root: "./public"});
-})
 
-app.get("/play", function(req,res) {
-	res.sendFile("game.html", {root: "./public"});
-})
+app.use('/', indexRouter)
+
+http.createServer(app).listen(port);
+>>>>>>> Stashed changes
+
+
 
 /*var createError = require('http-errors');
 var express = require('express');
