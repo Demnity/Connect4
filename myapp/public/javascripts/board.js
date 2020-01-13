@@ -46,7 +46,7 @@ class Player {
     });
   }
 }
-
+var t;
 class Game {
   constructor(gameId, board, playerA, playerB, timer) {
     this.playerA = playerA;
@@ -63,7 +63,7 @@ class Game {
   runTimer(game, i) {
     $(game.timer).html("" + i);
     var time = i;
-    setInterval(function() {
+    t = setInterval(function() {
       time--;
       if (time < 0) {
         time = i;
@@ -80,12 +80,25 @@ class Game {
   }
 
   clickFunc(game, board) {
+    var that = this;
     $("[col]").click(function(event) {
       let colValue = event.target.getAttribute("col");
       let rowValue = event.target.getAttribute("row");
       let color = game.currentTurn.color;
       let emptyRing = game.dropAnimation(colValue, color);
       console.log(emptyRing);
+      //temporary shitty code but works, will change
+      if (emptyRing) {
+        clearInterval(t);
+        if (that.currentTurn == that.playerA) {
+          that.currentTurn = that.playerB;
+          that.setCurrentPlayer(that.currentTurn);
+        } else {
+          that.currentTurn = that.playerA;
+          that.setCurrentPlayer(that.currentTurn);
+        }
+        that.runTimer(that, 3);
+      }
     });
   }
 
@@ -103,9 +116,9 @@ class Game {
       let $colNext = $(col[i + 1]);
       let $col = $(col[i]);
 
-      //Have to change this vvv
+      //Have to change this vvv //fixed
 
-      if ($col.css("border-top-color") == pColor) break;
+      if ($col.css("border-top-color") != "rgb(255, 255, 255)") break;
       let color = $colNext.css("border-top-color");
       //check white color
       if (color == "rgb(255, 255, 255)") {
