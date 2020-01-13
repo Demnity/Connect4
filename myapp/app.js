@@ -20,6 +20,13 @@ wss.on("listening", function(ws) {
 
 server.listen(port);
 
+app.get('/', function(req, res) {
+	res.sendFile("splash.html", {root: "./public"});
+})
+
+app.get("/play", function(req,res) {
+	res.sendFile("game.html", {root: "./public"});
+})
 
 /*var createError = require('http-errors');
 var express = require('express');
