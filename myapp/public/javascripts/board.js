@@ -27,14 +27,14 @@ class Board {
 }
 
 class Player {
-  constructor(color, name) {
+  constructor(color, name, id) {
     this.name = name;
     this.color = color;
+    this.id = id;
     this.ingameListener(this);
   }
 
   ingameListener(player) {
-    console.log(this);
     $("[col]").mouseenter(function(event) {
       let colValue = event.target.getAttribute("col");
       $("[row = 0][col=" + colValue + "]").css("border-color", player.color);
@@ -109,22 +109,84 @@ class Game {
       function(event) {
         let colValue = event.target.getAttribute("col");
         let rowValue = event.target.getAttribute("row");
-        let color = this.timer.currentTurn.color;
-        let emptyRing = this.dropAnimation(colValue, color);
-        console.log(emptyRing);
+        let currentTurn = this.timer.currentTurn;
+        let emptyRing = this.dropAnimation(
+          colValue,
+          currentTurn.color,
+          currentTurn.id
+        );
         //changed
         if (emptyRing) {
+          let winner = this.checkWinner(
+            parseInt(emptyRing.attr("col")),
+            parseInt(emptyRing.attr("row"))
+          );
+          if (winner) {
+            alert("winner winner");
+          }
           //restart timer
           this.timer.restart();
           //switch topring color
-          color = this.timer.currentTurn.color;
-          $("[row = 0][col=" + colValue + "]").css("border-color", color);
+          let color = this.timer.currentTurn.color;
+          $(`[row = 0][col= ${colValue}]`).css("border-color", color);
         }
       }.bind(this)
     );
   }
 
-  dropAnimation(colValue, pColor) {
+  checkWinner(col, row) {
+    const that = this;
+    function getRing(row, col) {
+      return $(`[row='${row}'][col='${col}']`);
+    }
+
+    function checkVertical() {
+      return checkWin({ i: -1, j: 0 }, { i: 1, j: 0 });
+    }
+
+    function checkHorizontal() {
+      return checkWin({ i: 0, j: -1 }, { i: 0, j: 1 });
+    }
+
+    function checkDiagonal() {
+      return (
+        checkWin({ i: 1, j: -1 }, { i: -1, j: 1 }) ||
+        checkWin({ i: -1, j: -1 }, { i: 1, j: 1 })
+      );
+    }
+
+    function checkWin(directionA, directionB) {
+      let sum = 1 + countRings(directionA) + countRings(directionB);
+      if (sum >= 4) {
+        return true;
+      }
+      return false;
+    }
+
+    function countRings(direction) {
+      let i = row + direction.i;
+      let j = col + direction.j;
+      let start_ring = getRing(i, j);
+      let count = 0;
+      while (
+        i >= 1 &&
+        i < 7 &&
+        j >= 0 &&
+        j < 7 &&
+        parseInt(start_ring.attr("id")) === that.timer.currentTurn.id
+      ) {
+        count++;
+        i += direction.i;
+        j += direction.j;
+        start_ring = getRing(i, j);
+      }
+      return count;
+    }
+
+    return checkVertical() || checkHorizontal() || checkDiagonal();
+  }
+
+  dropAnimation(colValue, pColor, playerId) {
     //seems like a generic function.
     let col = $("[col=" + colValue + "]");
     for (let i = 1; i < col.length; i++) {
@@ -144,12 +206,13 @@ class Game {
           $col.css("border-color", "white");
         }, i * 20 + 20);
       } else {
+        $col.attr("id", playerId);
         setTimeout(function() {
           $col.css("border-color", pColor);
         }, i * 20);
-        return true;
+        return $col;
       }
     }
-    return false;
+    return null;
   }
 }

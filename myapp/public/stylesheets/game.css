@@ -23,6 +23,14 @@ main {
   border: 8px solid transparent;
 }
 
+.player1 {
+  border-color: turquoise;
+}
+
+.player2 {
+  border-color: burlywood;
+}
+
 /*.ring:hover, .top-ring:hover {
     border-color: turquoise;
 }*/
