@@ -101,10 +101,10 @@ class Game {
       }
     };
 
-    this.clickFunc();
+    this.mouseListener();
   }
 
-  clickFunc() {
+  mouseListener() {
     $("[col]").click(
       function(event) {
         let colValue = event.target.getAttribute("col");
