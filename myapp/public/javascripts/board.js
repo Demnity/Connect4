@@ -46,7 +46,7 @@ class Player {
     });
   }
 }
-var t;
+
 class Game {
   constructor(gameId, board, playerA, playerB, time) {
     this.playerA = playerA;
@@ -105,17 +105,20 @@ class Game {
   }
 
   clickFunc() {
-    var that = this;
     $("[col]").click(
       function(event) {
         let colValue = event.target.getAttribute("col");
         let rowValue = event.target.getAttribute("row");
-        let color = that.timer.currentTurn.color;
+        let color = this.timer.currentTurn.color;
         let emptyRing = this.dropAnimation(colValue, color);
         console.log(emptyRing);
         //changed
         if (emptyRing) {
+          //restart timer
           this.timer.restart();
+          //switch topring color
+          color = this.timer.currentTurn.color;
+          $("[row = 0][col=" + colValue + "]").css("border-color", color);
         }
       }.bind(this)
     );
@@ -128,10 +131,10 @@ class Game {
       let $colNext = $(col[i + 1]);
       let $col = $(col[i]);
 
-      //Have to change this vvv //fixed
-
+      //check if col is filled
       if ($col.css("border-top-color") != "rgb(255, 255, 255)") break;
       let color = $colNext.css("border-top-color");
+
       //check white color
       if (color == "rgb(255, 255, 255)") {
         setTimeout(function() {
