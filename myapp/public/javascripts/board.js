@@ -48,65 +48,77 @@ class Player {
 }
 var t;
 class Game {
-  constructor(gameId, board, playerA, playerB, timer) {
+  constructor(gameId, board, playerA, playerB, time) {
     this.playerA = playerA;
     this.playerB = playerB;
     this.board = board;
     this.gameId = gameId;
-    this.currentTurn = playerA;
-    this.timer = timer;
+    this.timer = {
+      currentTurn: playerA,
+      interval: undefined,
+      countFrom: time, // second
+      count: this.countFrom,
 
-    this.runTimer(this, 3);
-    this.clickFunc(this, this.board, this.currentTurn);
-  }
+      restart: function() {
+        if (this.interval) {
+          clearInterval(this.interval);
+        }
+        this.switchPlayer();
+        this.count = this.countFrom;
+        $("#timer").html(this.count);
+        this.interval = setInterval(this.tick.bind(this), 1000);
+      },
 
-  runTimer(game, i) {
-    $(game.timer).html("" + i);
-    var time = i;
-    t = setInterval(function() {
-      time--;
-      if (time < 0) {
-        time = i;
-        if (game.currentTurn == game.playerA) {
-          game.currentTurn = game.playerB;
-          game.setCurrentPlayer(game.currentTurn);
+      stop: function() {
+        clearInterval(this.interval);
+      },
+
+      tick: function() {
+        this.count--;
+        if (this.count < 0) {
+          this.count = this.countFrom;
+          this.switchPlayer();
+        }
+        // update the view
+        $("#timer").html(this.count);
+      },
+
+      setCurrentPlayer: function(player) {
+        player.ingameListener(player);
+        $("#playerTurn")
+          .html(player.name)
+          .css("color", player.color);
+      },
+
+      switchPlayer: function() {
+        if (this.currentTurn == playerA) {
+          this.currentTurn = playerB;
+          this.setCurrentPlayer(this.currentTurn);
         } else {
-          game.currentTurn = game.playerA;
-          game.setCurrentPlayer(game.currentTurn);
+          this.currentTurn = playerA;
+          this.setCurrentPlayer(this.currentTurn);
         }
       }
-      $(timer).html("" + time);
-    }, 1000);
+    };
+
+    this.clickFunc();
   }
 
-  clickFunc(game, board) {
+  clickFunc() {
     var that = this;
-    $("[col]").click(function(event) {
-      let colValue = event.target.getAttribute("col");
-      let rowValue = event.target.getAttribute("row");
-      let color = game.currentTurn.color;
-      let emptyRing = game.dropAnimation(colValue, color);
-      console.log(emptyRing);
-      //temporary shitty code but works, will change
-      if (emptyRing) {
-        clearInterval(t);
-        if (that.currentTurn == that.playerA) {
-          that.currentTurn = that.playerB;
-          that.setCurrentPlayer(that.currentTurn);
-        } else {
-          that.currentTurn = that.playerA;
-          that.setCurrentPlayer(that.currentTurn);
+    $("[col]").click(
+      function(event) {
+        let colValue = event.target.getAttribute("col");
+        let rowValue = event.target.getAttribute("row");
+        let color = that.timer.currentTurn.color;
+        let emptyRing = this.dropAnimation(colValue, color);
+        console.log(emptyRing);
+        //changed
+        if (emptyRing) {
+          this.timer.restart();
         }
-        that.runTimer(that, 3);
-      }
-    });
-  }
-
-  setCurrentPlayer(player) {
-    player.ingameListener(player);
-    $("#playerTurn")
-      .html(player.name)
-      .css("color", player.color);
+      }.bind(this)
+    );
   }
 
   dropAnimation(colValue, pColor) {
