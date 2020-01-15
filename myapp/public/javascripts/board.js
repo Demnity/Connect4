@@ -37,12 +37,12 @@ class Player {
   ingameListener(player) {
     $("[col]").mouseenter(function(event) {
       let colValue = event.target.getAttribute("col");
-      $("[row = 0][col=" + colValue + "]").css("border-color", player.color);
+      $(`[row = 0][col= ${colValue}]`).css("border-color", player.color);
     });
 
     $("[col]").mouseout(function(event) {
       let colValue = event.target.getAttribute("col");
-      $("[row = 0][col=" + colValue + "]").css("border-color", "transparent");
+      $(`[row = 0][col= ${colValue}]`).css("border-color", "transparent");
     });
   }
 }
@@ -108,7 +108,6 @@ class Game {
     $("[col]").click(
       function(event) {
         let colValue = event.target.getAttribute("col");
-        let rowValue = event.target.getAttribute("row");
         let currentTurn = this.timer.currentTurn;
         let emptyRing = this.dropAnimation(
           colValue,
@@ -188,7 +187,7 @@ class Game {
 
   dropAnimation(colValue, pColor, playerId) {
     //seems like a generic function.
-    let col = $("[col=" + colValue + "]");
+    let col = $(`[col= ${colValue}]`);
     for (let i = 1; i < col.length; i++) {
       let $colNext = $(col[i + 1]);
       let $col = $(col[i]);
