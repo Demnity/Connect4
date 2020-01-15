@@ -59,21 +59,44 @@ wss.on('connection', function (ws, req) {
     playerType
   );
 
+
   con.on("message", function(message){
     data = JSON.parse(message);
-    console.log(message);
+    //console.log(message);
 
     if(data.type == 'PLAYER_CLICK'){
       //if(currentTurn ) need to implement
-      var out = {
-        type: 'ANIMATION',
-        row: data.row,
-        col: data.col,
-        color: data.color
-      };
+      var col = data.col;
 
-      currentGame.playerA.send(JSON.stringify(out));
-      currentGame.playerB.send(JSON.stringify(out));
+      var i;
+      for(i = 0; i < 6; i++){
+        if(currentGame.board[i][col] > 0)
+          break;
+      }
+      
+      //i-- so that it goes well with the server board;
+        i--;
+      
+      console.log(i);  
+      if(i >= 0){
+        currentGame.board[i][col] = data.playerid;
+        let winner = currentGame.checkWinner(i,col);
+        
+        if(winner != null)
+          console.log("Player " + winner + " Has Won!." );
+
+        var out = {
+          type: 'ANIMATION',
+          row: i+1,  //+1 because of top ring
+          col: data.col,
+          color: data.color
+        };
+
+        if(currentGame.playerA)
+          currentGame.playerA.send(JSON.stringify(out));
+        if(currentGame.playerB)
+          currentGame.playerB.send(JSON.stringify(out));
+      }
     }
   })
 

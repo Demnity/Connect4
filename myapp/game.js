@@ -4,7 +4,14 @@ class Game {
 constructor(gameId, time) {
   this.playerA = null;
   this.playerB = null;
-  //this.board = board;
+  this.board = [
+    [0,0,0,0,0,0,0],  // ---->row
+    [0,0,0,0,0,0,0],  //|
+    [0,0,0,0,0,0,0],  //|
+    [0,0,0,0,0,0,0],  //v
+    [0,0,0,0,0,0,0],  //column
+    [0,0,0,0,0,0,0]
+  ];
   this.gameId = gameId;
   this.noPlayer = 0;
   this.isGameFull = false;
@@ -95,9 +102,78 @@ mouseListener() {
   );
 }
 
-checkWinner(col, row) {
+checkWinner(row, col) {
   const that = this;
-  function getRing(row, col) {
+  let id = this.board[row][col];
+
+  let i = row;
+  let j = col;
+
+  var leftCount = 0;
+  var rightCount = 0;
+
+  while((++j < 7) && this.board[i][j] == id)
+    rightCount++;
+
+  j = col;
+  while((--j >= 0) && this.board[i][j] == id)
+    leftCount++;
+
+  if(rightCount + leftCount + 1 >= 4)
+    return id; //id of winning player
+
+
+  var upCount = 0;
+  var downCount = 0;
+
+  i = row;
+  j = col;
+  console.log(i + " yes " +j)  
+  while((++i < 6) && this.board[i][j] == id)
+    downCount++;
+
+  i = row;
+  while((--i >= 0) && this.board[i][j] == id)
+    upCount++;
+
+  if(downCount + upCount + 1 >= 4)
+    return id;
+
+  var diagCount = 0;
+  var oppCount = 0;
+
+  i = row;
+  j = col;
+  while((++i < 6 && ++j < 7) && this.board[i][j] == id)
+    diagCount++;
+
+    i = row;
+    j = col;
+  while((--i >= 0 && --j >= 0) && this.board[i][j] == id)
+    oppCount++;
+
+  if(diagCount + oppCount + 1 >= 4)
+    return id;
+
+  diagCount = 0;
+  oppCount = 0;
+
+  i = row;
+  j = col;
+  while((++i < 6 && --j >= 0) && this.board[i][j] == id)
+    diagCount++;
+
+    i = row;
+    j = col;
+  while((--i >= 0 && ++j < 7) && this.board[i][j] == id)
+    oppCount++;
+
+  if(diagCount + oppCount + 1 >= 4)
+    return id;
+
+  return null;
+}
+  /*function getRing(row, col) {
     return $(`[row='${row}'][col='${col}']`);
   }
 
@@ -145,7 +221,7 @@ checkWinner(col, row) {
   }
 
   return checkVertical() || checkHorizontal() || checkDiagonal();
-}
+}*/
 
 //Shitty code, might change later.
 addPlayer(ws, player){

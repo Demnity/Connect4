@@ -30,6 +30,7 @@ class Player {
             type: "PLAYER_CLICK",
             row: rowValue,
             col: colValue,
+            playerid: this.id,
             color: this.color
           }));
         }.bind(this)
