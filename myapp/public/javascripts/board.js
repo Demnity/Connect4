@@ -24,7 +24,6 @@ class Board {
       $board.append($row);
     }
   }
-
 }
 
 /*$(document).ready(function(){

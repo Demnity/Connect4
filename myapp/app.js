@@ -72,6 +72,10 @@ wss.on('connection', function (ws, req) {
      */
     console.log(con.id + " disconnected ...");
     connectionID--;
+
+    /////
+    currentGame.noPlayer--;
+    /////
   });
 });
 
