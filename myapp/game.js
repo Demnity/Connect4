@@ -128,7 +128,7 @@ checkWinner(row, col) {
 
   i = row;
   j = col;
-  console.log(i + " yes " +j)  
+    
   while((++i < 6) && this.board[i][j] == id)
     downCount++;
 
