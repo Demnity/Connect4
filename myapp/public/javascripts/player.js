@@ -1,10 +1,12 @@
 
 class Player {
-    constructor(color, name, id) {
+    constructor(color, name, id, socket) {
       this.name = name;
       this.color = color;
       this.id = id;
+      this.socket = socket;
       this.ingameListener(this);
+      this.mouseListener();
     }
   
     ingameListener(player) {
@@ -17,6 +19,21 @@ class Player {
         let colValue = event.target.getAttribute("col");
         $("[row = 0][col=" + colValue + "]").css("border-color", "transparent");
       });
+    }
+
+    mouseListener() {
+      $("[col]").click(
+        function(event) {
+          let colValue = event.target.getAttribute("col");
+          let rowValue = event.target.getAttribute("row");
+          this.socket.send(JSON.stringify({
+            type: "PLAYER_CLICK",
+            row: rowValue,
+            col: colValue,
+            color: this.color
+          }));
+        }.bind(this)
+      );
     }
   }
 

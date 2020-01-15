@@ -59,10 +59,22 @@ wss.on('connection', function (ws, req) {
     playerType
   );
 
-  con.send("test");
-
   con.on("message", function(message){
-    
+    data = JSON.parse(message);
+    console.log(message);
+
+    if(data.type == 'PLAYER_CLICK'){
+      //if(currentTurn ) need to implement
+      var out = {
+        type: 'ANIMATION',
+        row: data.row,
+        col: data.col,
+        color: data.color
+      };
+
+      currentGame.playerA.send(JSON.stringify(out));
+      currentGame.playerB.send(JSON.stringify(out));
+    }
   })
 
   con.on("close", function(code) {

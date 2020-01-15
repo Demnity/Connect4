@@ -147,37 +147,6 @@ checkWinner(col, row) {
   return checkVertical() || checkHorizontal() || checkDiagonal();
 }
 
-dropAnimation(colValue, rowValue,pColor, playerId) {
-  //seems like a generic function.
-  let col = $("[col=" + colValue + "]");
-
-  for (let i = 1; i < col.length; i++) {
-    let $colNext = $(col[i + 1]);
-    let $col = $(col[i]);
-
-    //check if col is filled
-    //if ($col.css("border-top-color") != "rgb(255, 255, 255)") break;
-    let color = $colNext.css("border-top-color");
-
-    //check white color
-    if (color == "rgb(255, 255, 255)") {
-      setTimeout(function() {
-        $col.css("border-color", pColor);
-      }, i * 20);
-      setTimeout(function() {
-        $col.css("border-color", "white");
-      }, i * 20 + 20);
-    } else {
-      $col.attr("id", playerId);
-      setTimeout(function() {
-        $col.css("border-color", pColor);
-      }, i * 20);
-      return $col;
-    }
-  }
-  return null;
-}
-
 //Shitty code, might change later.
 addPlayer(ws, player){
   if(this.isGameFull)
@@ -186,13 +155,13 @@ addPlayer(ws, player){
   var id = ++this.noPlayer;
   
   if(id == 1){
-    //this.playerA = 
-
+    this.playerA = ws;
+    
     ws.send(JSON.stringify({type: 'PLAYER_ID', id:1}));
     //ws.Player = this.playerA;
   }
   else if(id == 2){
-    //this.playerB = 
+    this.playerB = ws;
     ws.send(JSON.stringify({type : "PLAYER_ID", id: 2}));
     //ws.Player = this.playerB;
     this.isGameFull = true;
@@ -200,6 +169,9 @@ addPlayer(ws, player){
     //start game ---- testing
     //this.startGame();*/
   }
+
+  //this.playerB.otherPlayer = this.playerA;
+  //this.playerA.otherPlayer = this.playerB;
 }
 }
 
