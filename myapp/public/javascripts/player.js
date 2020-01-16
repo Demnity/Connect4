@@ -37,6 +37,3 @@ class Player {
       );
     }
   }
-
-if(typeof exports != undefined)
-  module.exports = Player;

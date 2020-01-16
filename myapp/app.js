@@ -59,10 +59,16 @@ wss.on('connection', function (ws, req) {
     playerType
   );
 
+  if (currentGame.isGameFull) {
+    currentGame = new Game(gameId++, 7);
+  }
+
 
   con.on("message", function(message){
     data = JSON.parse(message);
     //console.log(message);
+
+    let gameObj = websockets[con.id];
 
     if(data.type == 'PLAYER_CLICK'){
       //if(currentTurn ) need to implement
@@ -70,20 +76,20 @@ wss.on('connection', function (ws, req) {
 
       var i;
       for(i = 0; i < 6; i++){
-        if(currentGame.board[i][col] > 0)
+        if(gameObj.board[i][col] > 0)
           break;
       }
       
       //i-- so that it goes well with the server board;
         i--;
-      
-      console.log(i);  
+       
       if(i >= 0){
-        currentGame.board[i][col] = data.playerid;
-        let winner = currentGame.checkWinner(i,col);
+        gameObj.board[i][col] = data.playerid;
+        let winner = gameObj.checkWinner(i,col);
         
-        if(winner != null)
+        if(winner != null) {
           console.log("Player " + winner + " Has Won!." );
+        }
 
         var out = {
           type: 'ANIMATION',
@@ -92,10 +98,10 @@ wss.on('connection', function (ws, req) {
           color: data.color
         };
 
-        if(currentGame.playerA)
-          currentGame.playerA.send(JSON.stringify(out));
-        if(currentGame.playerB)
-          currentGame.playerB.send(JSON.stringify(out));
+        if(gameObj.playerA)
+          gameObj.playerA.send(JSON.stringify(out));
+        if(gameObj.playerB)
+          gameObj.playerB.send(JSON.stringify(out));
       }
     }
   })
@@ -108,9 +114,37 @@ wss.on('connection', function (ws, req) {
     console.log(con.id + " disconnected ...");
     connectionID--;
 
+    let gameObj = websockets[con.id];
+
     /////
-    currentGame.noPlayer--;
+    gameObj.noPlayer--;
     /////
+
+    if (code == "1001") {
+      /*
+       * if possible, abort the game; if not, the game is already completed
+       */
+        gameObj.setStatus("ABORTED");
+        gameObj.isGameFull = false;
+
+        /*
+         * determine whose connection remains open;
+         * close it
+         */
+        try {
+          gameObj.playerA.close();
+          gameObj.playerA = null;
+        } catch (e) {
+          console.log("Player A closing: " + e);
+        }
+
+        try {
+          gameObj.playerB.close();
+          gameObj.playerB = null;
+        } catch (e) {
+          console.log("Player B closing: " + e);
+        }
+    }
   });
 });
 

@@ -1,20 +1,22 @@
-var Player = require('./public/javascripts/player');
+//var Player = require('./public/javascripts/player');
 
 class Game {
 constructor(gameId, time) {
   this.playerA = null;
   this.playerB = null;
+  this.winnerId = null;
   this.board = [
-    [0,0,0,0,0,0,0],  // ---->row
+    [0,0,0,0,0,0,0],  // ---->colValue
     [0,0,0,0,0,0,0],  //|
     [0,0,0,0,0,0,0],  //|
     [0,0,0,0,0,0,0],  //v
-    [0,0,0,0,0,0,0],  //column
+    [0,0,0,0,0,0,0],  //rowValue
     [0,0,0,0,0,0,0]
   ];
   this.gameId = gameId;
   this.noPlayer = 0;
   this.isGameFull = false;
+  this.gameStatus = "SEARCHING";
   this.timer = {
     currentTurn: null,
     interval: undefined,
@@ -65,6 +67,41 @@ constructor(gameId, time) {
 
   //Starts listening
   //this.mouseListener();
+}
+
+setStatus(status){
+  this.gameStatus = status;
+}
+
+getStatus(){
+  return this.gameStatus;
+}
+
+//Shitty code, might change later.
+addPlayer(ws){
+  if(this.isGameFull)
+    return "Game Full";
+
+  var id = ++this.noPlayer;
+  
+  if(id == 1){
+    this.playerA = ws;
+    
+    ws.send(JSON.stringify({type: 'PLAYER_ID', id:1}));
+
+  }
+  else if(id == 2){
+    this.playerB = ws;
+    ws.send(JSON.stringify({type : "PLAYER_ID", id: 2}));
+    this.isGameFull = true;
+
+    //start game ---- testing
+    //this.startGame();*/
+    this.gameStatus = "STARTED";
+  }
+
+  //this.playerB.otherPlayer = this.playerA;
+  //this.playerA.otherPlayer = this.playerB;
 }
 
 startGame() {
@@ -119,8 +156,10 @@ checkWinner(row, col) {
   while((--j >= 0) && this.board[i][j] == id)
     leftCount++;
 
-  if(rightCount + leftCount + 1 >= 4)
-    return id; //id of winning player
+  if(rightCount + leftCount + 1 >= 4){
+    this.winnerId = id;
+    return id; 
+  }
 
 
   var upCount = 0;
@@ -136,8 +175,10 @@ checkWinner(row, col) {
   while((--i >= 0) && this.board[i][j] == id)
     upCount++;
 
-  if(downCount + upCount + 1 >= 4)
-    return id;
+  if(downCount + upCount + 1 >= 4){
+    this.winnerId = id;
+    return id; 
+  }
 
   var diagCount = 0;
   var oppCount = 0;
@@ -152,8 +193,10 @@ checkWinner(row, col) {
   while((--i >= 0 && --j >= 0) && this.board[i][j] == id)
     oppCount++;
 
-  if(diagCount + oppCount + 1 >= 4)
-    return id;
+  if(diagCount + oppCount + 1 >= 4){
+    this.winnerId = id;
+    return id; 
+  }
 
   diagCount = 0;
   oppCount = 0;
@@ -168,87 +211,14 @@ checkWinner(row, col) {
   while((--i >= 0 && ++j < 7) && this.board[i][j] == id)
     oppCount++;
 
-  if(diagCount + oppCount + 1 >= 4)
-    return id;
+  if(diagCount + oppCount + 1 >= 4){
+    this.winnerId = id;
+    return id; 
+  }
 
   return null;
 }
-  /*function getRing(row, col) {
-    return $(`[row='${row}'][col='${col}']`);
-  }
 
-  function checkVertical() {
-    return checkWin({ i: -1, j: 0 }, { i: 1, j: 0 });
-  }
-
-  function checkHorizontal() {
-    return checkWin({ i: 0, j: -1 }, { i: 0, j: 1 });
-  }
-
-  function checkDiagonal() {
-    return (
-      checkWin({ i: 1, j: -1 }, { i: -1, j: 1 }) ||
-      checkWin({ i: -1, j: -1 }, { i: 1, j: 1 })
-    );
-  }
-
-  function checkWin(directionA, directionB) {
-    let sum = 1 + countRings(directionA) + countRings(directionB);
-    if (sum >= 4) {
-      return true;
-    }
-    return false;
-  }
-
-  function countRings(direction) {
-    let i = row + direction.i;
-    let j = col + direction.j;
-    let start_ring = getRing(i, j);
-    let count = 0;
-    while (
-      i >= 1 &&
-      i < 7 &&
-      j >= 0 &&
-      j < 7 &&
-      parseInt(start_ring.attr("id")) === that.timer.currentTurn.id
-    ) {
-      count++;
-      i += direction.i;
-      j += direction.j;
-      start_ring = getRing(i, j);
-    }
-    return count;
-  }
-
-  return checkVertical() || checkHorizontal() || checkDiagonal();
-}*/
-
-//Shitty code, might change later.
-addPlayer(ws, player){
-  if(this.isGameFull)
-    return "Game Full";
-
-  var id = ++this.noPlayer;
-  
-  if(id == 1){
-    this.playerA = ws;
-    
-    ws.send(JSON.stringify({type: 'PLAYER_ID', id:1}));
-    //ws.Player = this.playerA;
-  }
-  else if(id == 2){
-    this.playerB = ws;
-    ws.send(JSON.stringify({type : "PLAYER_ID", id: 2}));
-    //ws.Player = this.playerB;
-    this.isGameFull = true;
-
-    //start game ---- testing
-    //this.startGame();*/
-  }
-
-  //this.playerB.otherPlayer = this.playerA;
-  //this.playerA.otherPlayer = this.playerB;
-}
 }
 
 
