@@ -69,6 +69,17 @@ constructor(gameId, time) {
   //this.mouseListener();
 }
 
+clearBoard(){
+  this.board = [
+    [0,0,0,0,0,0,0],  // ---->colValue
+    [0,0,0,0,0,0,0],  //|
+    [0,0,0,0,0,0,0],  //|
+    [0,0,0,0,0,0,0],  //v
+    [0,0,0,0,0,0,0],  //rowValue
+    [0,0,0,0,0,0,0]
+  ];
+}
+
 setStatus(status){
   this.gameStatus = status;
 }
@@ -102,6 +113,8 @@ addPlayer(ws){
 
   //this.playerB.otherPlayer = this.playerA;
   //this.playerA.otherPlayer = this.playerB;
+
+  return id;
 }
 
 startGame() {

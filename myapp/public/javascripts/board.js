@@ -1,9 +1,12 @@
 class Board {
-  constructor(board) {
+  constructor(board, create) {
     this.row = 7;
     this.col = 7;
     this.board = board;
-    this.createBoard();
+    if(create)
+      this.createBoard();
+    else 
+      this.clearBoard();
     //this.listenMouseEvent();
   }
 
@@ -23,6 +26,10 @@ class Board {
       }
       $board.append($row);
     }
+  }
+
+  clearBoard() {
+    $('#board .ring').css("border", "8px solid #fff");
   }
 
   //DOESNT CHECK COLLISIONl

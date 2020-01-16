@@ -26,6 +26,7 @@ class Player {
         function(event) {
           let colValue = event.target.getAttribute("col");
           let rowValue = event.target.getAttribute("row");
+          console.log("CLOCK");
           this.socket.send(JSON.stringify({
             type: "PLAYER_CLICK",
             row: rowValue,

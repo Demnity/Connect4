@@ -56,7 +56,7 @@ wss.on('connection', function (ws, req) {
     "Player %s placed in game %s as %s",
     con.id,
     currentGame.gameId,
-    playerType
+    currentGame.noPlayer
   );
 
   if (currentGame.isGameFull) {
@@ -88,9 +88,24 @@ wss.on('connection', function (ws, req) {
         let winner = gameObj.checkWinner(i,col);
         
         if(winner != null) {
+          if(winner == 1)
+            winner = gameObj.playerA.id;
+          else if(winner == 2)
+            winner = gameObj.playerB.id;
           console.log("Player " + winner + " Has Won!." );
-        }
+          gameObj.clearBoard();
 
+          var out = {
+            type: 'CLEAR_BOARD'
+          };
+  
+          if(gameObj.playerA)
+            gameObj.playerA.send(JSON.stringify(out));
+          if(gameObj.playerB)
+            gameObj.playerB.send(JSON.stringify(out));
+
+        }
+        else {
         var out = {
           type: 'ANIMATION',
           row: i+1,  //+1 because of top ring
@@ -103,6 +118,7 @@ wss.on('connection', function (ws, req) {
         if(gameObj.playerB)
           gameObj.playerB.send(JSON.stringify(out));
       }
+      }
     }
   })
 
@@ -112,15 +128,16 @@ wss.on('connection', function (ws, req) {
      * source: https://developer.mozilla.org/en-US/docs/Web/API/CloseEvent
      */
     console.log(con.id + " disconnected ...");
-    connectionID--;
 
     let gameObj = websockets[con.id];
 
     /////
     gameObj.noPlayer--;
+    currentGame = new Game(gameId++, 7);
+    
     /////
 
-    if (code == "1001") {
+    //if (code == "1001") {
       /*
        * if possible, abort the game; if not, the game is already completed
        */
@@ -131,20 +148,18 @@ wss.on('connection', function (ws, req) {
          * determine whose connection remains open;
          * close it
          */
-        try {
-          gameObj.playerA.close();
-          gameObj.playerA = null;
-        } catch (e) {
-          console.log("Player A closing: " + e);
-        }
 
-        try {
-          gameObj.playerB.close();
-          gameObj.playerB = null;
-        } catch (e) {
-          console.log("Player B closing: " + e);
+        if(gameObj.playerA != null){
+          gameObj.playerA.send(JSON.stringify({type: "RESTART"}));
+          //gameObj.playerA.close();
+          gameObj.playerA = null;
         }
-    }
+        if(gameObj.playerB != null){
+          gameObj.playerB.send(JSON.stringify({type: "RESTART"}));
+          //gameObj.playerB.close();
+          gameObj.playerB = null;
+        }
+    //}
   });
 });
 
