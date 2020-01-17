@@ -94,6 +94,55 @@ class Board {
   }
 }
 
+class Timer{
+  constructor(time){
+    this.currentTurn = null;
+    this.interval = undefined;
+    this.countFrom = time; // second
+    this.count = this.countFrom;
+  }
+
+  restart() {
+    if (this.interval) {
+      clearInterval(this.interval);
+    }
+
+    //this.switchPlayer();
+    this.count = this.countFrom;
+    $("#timer").html(this.count);
+    //var msg = {
+    //  type: "RESTART_TIMER",
+    //  count: this.count
+    //}
+
+    this.interval = setInterval(this.tick.bind(this), 1000);
+
+    //return msg;
+  }
+
+  setCurrentPlayer(player) {
+    $("#playerTurn")
+      .html("FILLER")
+  }
+
+  tick() {
+    this.count--;
+    if (this.count < 0) {
+      if (this.interval) {
+        clearInterval(this.interval);
+      }
+      //this.count = this.countFrom;
+      //this.switchPlayer();
+    }
+    // update the view
+    $("#timer").html(this.count);
+  }
+
+  stop() {
+    clearInterval(this.interval);
+  }
+}
+
 /*$(document).ready(function(){
   const gameBoard = new Board("#board"); 
 });*/
