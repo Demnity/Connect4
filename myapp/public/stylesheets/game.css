@@ -19,6 +19,10 @@ main {
   cursor: pointer;
 }
 
+.ring-disable {
+  pointer-events: none;
+}
+
 .top-ring {
   border: 8px solid transparent;
 }
@@ -117,4 +121,3 @@ main {
   font-family: "Amatic SC", cursive;
   font-size: 1.5em;
 }
-
