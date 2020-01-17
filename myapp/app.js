@@ -80,55 +80,49 @@ wss.on("connection", function(ws, req) {
 
       if (i >= 0) {
         gameObj.board[i][col] = data.playerid;
-        let winner = gameObj.checkWinner(i,col);
-        
-        if(winner != null) {
-          if(winner == 1)
-            winner = gameObj.playerA.id;
-          else if(winner == 2)
-            winner = gameObj.playerB.id;
-          console.log("Player " + winner + " Has Won!." );
+        let winner = gameObj.checkWinner(i, col);
+
+        if (winner != null) {
+          if (winner == 1) winner = gameObj.playerA.id;
+          else if (winner == 2) winner = gameObj.playerB.id;
+          console.log("Player " + winner + " Has Won!.");
           gameObj.clearBoard();
 
           var out = {
-            type: 'CLEAR_BOARD'
+            type: "CLEAR_BOARD"
           };
-  
-          if(gameObj.playerA)
-            gameObj.playerA.send(JSON.stringify(out));
-          if(gameObj.playerB)
-            gameObj.playerB.send(JSON.stringify(out));
 
-        }
-        else {
-        var animation = {
-          type: 'ANIMATION',
-          row: i+1,  //+1 because of top ring
-          col: data.col,
-          color: data.color
-        };
-
-        if (gameObj.playerA) {
-          gameObj.playerA.send(JSON.stringify(animation));
-        }
-        if (gameObj.playerB) {
-          gameObj.playerB.send(JSON.stringify(animation));
-        }
-
-        var enableMouse = {
-          type: "ENABLE_MOUSE"
-        };
-        var disableMouse = {
-          type: "DISABLE_MOUSE"
-        };
-        if (data.playerid == 1) {
-          gameObj.playerA.send(JSON.stringify(disableMouse));
-          gameObj.playerB.send(JSON.stringify(enableMouse));
+          if (gameObj.playerA) gameObj.playerA.send(JSON.stringify(out));
+          if (gameObj.playerB) gameObj.playerB.send(JSON.stringify(out));
         } else {
-          gameObj.playerB.send(JSON.stringify(disableMouse));
-          gameObj.playerA.send(JSON.stringify(enableMouse));
+          var animation = {
+            type: "ANIMATION",
+            row: i + 1, //+1 because of top ring
+            col: data.col,
+            color: data.color
+          };
+
+          if (gameObj.playerA) {
+            gameObj.playerA.send(JSON.stringify(animation));
+          }
+          if (gameObj.playerB) {
+            gameObj.playerB.send(JSON.stringify(animation));
+          }
+
+          var enableMouse = {
+            type: "ENABLE"
+          };
+          var disableMouse = {
+            type: "DISABLE"
+          };
+          if (data.playerid == 1) {
+            gameObj.playerB.send(JSON.stringify(enableMouse));
+            gameObj.playerA.send(JSON.stringify(disableMouse));
+          } else {
+            gameObj.playerA.send(JSON.stringify(enableMouse));
+            gameObj.playerB.send(JSON.stringify(disableMouse));
+          }
         }
-      }
       }
     }
   });
@@ -145,31 +139,31 @@ wss.on("connection", function(ws, req) {
     /////
     gameObj.noPlayer--;
     currentGame = new Game(gameId++, 7);
-    
+
     /////
 
     //if (code == "1001") {
-      /*
-       * if possible, abort the game; if not, the game is already completed
-       */
-        gameObj.setStatus("ABORTED");
-        gameObj.isGameFull = false;
+    /*
+     * if possible, abort the game; if not, the game is already completed
+     */
+    gameObj.setStatus("ABORTED");
+    gameObj.isGameFull = false;
 
-        /*
-         * determine whose connection remains open;
-         * close it
-         */
+    /*
+     * determine whose connection remains open;
+     * close it
+     */
 
-        if(gameObj.playerA != null){
-          gameObj.playerA.send(JSON.stringify({type: "RESTART"}));
-          //gameObj.playerA.close();
-          gameObj.playerA = null;
-        }
-        if(gameObj.playerB != null){
-          gameObj.playerB.send(JSON.stringify({type: "RESTART"}));
-          //gameObj.playerB.close();
-          gameObj.playerB = null;
-        }
+    if (gameObj.playerA != null) {
+      gameObj.playerA.send(JSON.stringify({ type: "RESTART" }));
+      //gameObj.playerA.close();
+      gameObj.playerA = null;
+    }
+    if (gameObj.playerB != null) {
+      gameObj.playerB.send(JSON.stringify({ type: "RESTART" }));
+      //gameObj.playerB.close();
+      gameObj.playerB = null;
+    }
     //}
   });
 });

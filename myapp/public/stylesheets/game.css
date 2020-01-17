@@ -29,15 +29,13 @@ main {
 
 .player1 {
   border-color: turquoise;
+  color: turquoise !important;
 }
 
 .player2 {
   border-color: burlywood;
+  color: burlywood !important;
 }
-
-/*.ring:hover, .top-ring:hover {
-    border-color: turquoise;
-}*/
 
 header {
   overflow: auto;

@@ -4,10 +4,8 @@ class Board {
     this.col = 7;
     this.board = board;
     console.log(create);
-    if(create)
-      this.createBoard();
-    else 
-      this.clearBoard();
+    if (create) this.createBoard();
+    else this.clearBoard();
     //this.listenMouseEvent();
   }
 
@@ -30,7 +28,7 @@ class Board {
   }
 
   clearBoard() {
-    $('#board .ring').css("border", "8px solid #fff");
+    $("#board .ring").css("border", "8px solid #fff");
   }
 
   //DOESNT CHECK COLLISIONl
@@ -65,15 +63,33 @@ class Board {
     return null;
   }
 
-  disableMouse() {
+  disableMouse(id) {
     for (let i = 0; i < this.row; i++) {
       $(`[row = '${i}']`).addClass("ring-disable");
     }
+    //Change #playerTurn color
+    $("#playerTurn").html("Opponent");
+    if (id == 1) {
+      $("#playerTurn").removeClass("player2");
+      $("#playerTurn").addClass("player1");
+    } else {
+      $("#playerTurn").removeClass("player1");
+      $("#playerTurn").addClass("player2");
+    }
   }
 
-  enableMouse() {
+  enableMouse(id) {
     for (let i = 0; i < this.row; i++) {
       $(`[row = '${i}']`).removeClass("ring-disable");
+    }
+    //Change #playerTurn color
+    $("#playerTurn").html("You");
+    if (id == 1) {
+      $("#playerTurn").removeClass("player1");
+      $("#playerTurn").addClass("player2");
+    } else {
+      $("#playerTurn").removeClass("player2");
+      $("#playerTurn").addClass("player1");
     }
   }
 }
