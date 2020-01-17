@@ -18,7 +18,7 @@ class Game {
     this.isGameFull = false;
     this.gameStatus = "SEARCHING";
     this.timer = {
-      currentTurn: null,
+      currentTurn: null,     //CHANGE MAYBE?
       interval: undefined,
       countFrom: time, // second
       count: this.countFrom,
@@ -27,10 +27,18 @@ class Game {
         if (this.interval) {
           clearInterval(this.interval);
         }
+
         this.switchPlayer();
         this.count = this.countFrom;
-        $("#timer").html(this.count);
+        //$("#timer").html(this.count);
+        var msg = {
+          type: "RESTART_TIMER",
+          count: this.count
+        }
+
         this.interval = setInterval(this.tick.bind(this), 1000);
+
+        return msg;
       },
 
       stop: function() {
@@ -42,24 +50,31 @@ class Game {
         if (this.count < 0) {
           this.count = this.countFrom;
           this.switchPlayer();
+
         }
         // update the view
-        $("#timer").html(this.count);
+        //$("#timer").html(this.count);
       },
 
       setCurrentPlayer: function(player) {
-        player.ingameListener(player);
-        $("#playerTurn")
-          .html(player.name)
-          .css("color", player.color);
+        //player.ingameListener(player);
+        //$("#playerTurn")
+        //  .html(player.name)
+        //  .css("color", player.color);
+        var msg = {
+          type: "SWITCH_PLAYER",
+          id: player
+        };
+
+        return msg;
       },
 
       switchPlayer: function() {
-        if (this.currentTurn == playerA) {
-          this.currentTurn = playerB;
+        if (this.currentTurn == 1) {  //playerA id = 1, playerB id = 2
+          this.currentTurn = 2;
           this.setCurrentPlayer(this.currentTurn);
         } else {
-          this.currentTurn = playerA;
+          this.currentTurn = 1;
           this.setCurrentPlayer(this.currentTurn);
         }
       }

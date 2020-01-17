@@ -115,6 +115,7 @@ wss.on("connection", function(ws, req) {
           gameObj.playerB.send(JSON.stringify(animation));
         }
 
+
         var enableMouse = {
           type: "ENABLE_MOUSE"
         };
@@ -122,9 +123,20 @@ wss.on("connection", function(ws, req) {
           type: "DISABLE_MOUSE"
         };
         if (data.playerid == 1) {
+          gameObj.timer.currentTurn = 1; //switchPlayer changes to correct currentPlayer
+          var restartTimer = gameObj.timer.restart();
+          gameObj.playerA.send(JSON.stringify(restartTimer));
+          gameObj.playerB.send(JSON.stringify(restartTimer));
+
           gameObj.playerA.send(JSON.stringify(disableMouse));
           gameObj.playerB.send(JSON.stringify(enableMouse));
+
         } else {
+          gameObj.timer.currentTurn = 2;
+          var restartTimer = gameObj.timer.restart();
+          gameObj.playerA.send(JSON.stringify(restartTimer));
+          gameObj.playerB.send(JSON.stringify(restartTimer));
+
           gameObj.playerB.send(JSON.stringify(disableMouse));
           gameObj.playerA.send(JSON.stringify(enableMouse));
         }
@@ -144,7 +156,8 @@ wss.on("connection", function(ws, req) {
 
     /////
     gameObj.noPlayer--;
-    currentGame = new Game(gameId++, 7);
+    if(currentGame.isGameFull)
+      currentGame = new Game(gameId++, 7);
     
     /////
 

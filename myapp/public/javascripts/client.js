@@ -1,5 +1,6 @@
 var main = function(create) {
   const board = new Board("#board", create);
+  const timer = new Timer(20);
   var player;
 
   
@@ -27,6 +28,9 @@ var main = function(create) {
     else if(data.type == 'ANIMATION'){
       console.log(data);
       board.dropAnimation(data.row, data.col, data.color);
+    }
+    else if(data.type == 'RESTART_TIMER'){
+      timer.restart();
     }
     else if (data.type == "DISABLE_MOUSE") {
       board.disableMouse();
