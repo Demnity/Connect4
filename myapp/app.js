@@ -92,7 +92,6 @@ wss.on("connection", function(ws, req) {
             type: "CLEAR_BOARD"
           };
 
-<<<<<<< HEAD
           if (gameObj.playerA) gameObj.playerA.send(JSON.stringify(out));
           if (gameObj.playerB) gameObj.playerB.send(JSON.stringify(out));
         } else {
@@ -116,21 +115,6 @@ wss.on("connection", function(ws, req) {
           var disableMouse = {
             type: "DISABLE"
           };
-          if (data.playerid == 1) {
-            gameObj.playerB.send(JSON.stringify(enableMouse));
-            gameObj.playerA.send(JSON.stringify(disableMouse));
-          } else {
-            gameObj.playerA.send(JSON.stringify(enableMouse));
-            gameObj.playerB.send(JSON.stringify(disableMouse));
-          }
-=======
-
-        var enableMouse = {
-          type: "ENABLE_MOUSE"
-        };
-        var disableMouse = {
-          type: "DISABLE_MOUSE"
-        };
         if (data.playerid == 1) {
           gameObj.timer.currentTurn = 1; //switchPlayer changes to correct currentPlayer
           var restartTimer = gameObj.timer.restart();
@@ -148,11 +132,11 @@ wss.on("connection", function(ws, req) {
 
           gameObj.playerB.send(JSON.stringify(disableMouse));
           gameObj.playerA.send(JSON.stringify(enableMouse));
->>>>>>> 5080dafa84df2dfe7b521e2b06adc5bda133a475
         }
       }
     }
-  });
+  }
+});
 
   con.on("close", function(code) {
     /*
@@ -165,14 +149,9 @@ wss.on("connection", function(ws, req) {
 
     /////
     gameObj.noPlayer--;
-<<<<<<< HEAD
-    currentGame = new Game(gameId++, 7);
-
-=======
     if(currentGame.isGameFull)
       currentGame = new Game(gameId++, 7);
     
->>>>>>> 5080dafa84df2dfe7b521e2b06adc5bda133a475
     /////
 
     //if (code == "1001") {

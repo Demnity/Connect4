@@ -26,25 +26,15 @@ var main = function(create) {
     } else if (data.type == "ANIMATION") {
       console.log(data);
       board.dropAnimation(data.row, data.col, data.color);
-<<<<<<< HEAD
     } else if (data.type == "DISABLE") {
       board.disableMouse(player.id);
     } else if (data.type == "ENABLE") {
       board.enableMouse(player.id);
-    } else if (data.type == "CLEAR_BOARD") {
-=======
-    }
+    } 
     else if(data.type == 'RESTART_TIMER'){
       timer.restart();
     }
-    else if (data.type == "DISABLE_MOUSE") {
-      board.disableMouse();
-    }
-    else if (data.type == "ENABLE_MOUSE") {
-      board.enableMouse();
-    }
     else if(data.type == 'CLEAR_BOARD'){
->>>>>>> 5080dafa84df2dfe7b521e2b06adc5bda133a475
       board.clearBoard();
     } else if (data.type == "RESTART") {
       socket.close();
