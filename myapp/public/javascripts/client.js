@@ -1,5 +1,5 @@
-var main = function() {
-  const board = new Board("#board");
+var main = function(create) {
+  const board = new Board("#board", create);
   var player;
 
   
@@ -28,9 +28,21 @@ var main = function() {
       console.log(data);
       board.dropAnimation(data.row, data.col, data.color);
     }
+    else if (data.type == "DISABLE_MOUSE") {
+      board.disableMouse();
+    }
+    else if (data.type == "ENABLE_MOUSE") {
+      board.enableMouse();
+    }
+    else if(data.type == 'CLEAR_BOARD'){
+      board.clearBoard();
+    }
+    else if(data.type == 'RESTART'){
+      socket.close();
+      setTimeout(main(false), 2000);
+    }
   }
-
   
 };
 
-$(document).ready(main);
+$(document).ready(main(true));

@@ -2,7 +2,6 @@ var express = require("express");
 var http = require("http");
 var websocket = require("ws");
 
-
 var indexRouter = require("./routes/index");
 
 var port = process.argv[2];
@@ -16,10 +15,8 @@ var currentGame = new Game(gameId++, 7);
 
 app.use(express.static(__dirname + "/public"));
 
-
 app.get("/", indexRouter);
 app.get("/play", indexRouter);
-
 
 var server = http.createServer(app);
 const wss = new websocket.Server({ server });
@@ -31,7 +28,7 @@ var seachingForGame = {};
  */
 setInterval(function() {
   for (let i in websockets) {
-    if (Object.prototype.hasOwnProperty.call(websockets,i)) {
+    if (Object.prototype.hasOwnProperty.call(websockets, i)) {
       let gameObj = websockets[i];
       //if the gameObj has a final status, the game is complete/aborted
       if (gameObj.finalStatus != null) {
@@ -44,9 +41,9 @@ setInterval(function() {
 
 var connectionID = 0;
 
-wss.on('connection', function (ws, req) {
+wss.on("connection", function(ws, req) {
   console.log("Client Joined");
-  
+
   let con = ws;
   con.id = connectionID++;
   let playerType = currentGame.addPlayer(con);
@@ -63,27 +60,25 @@ wss.on('connection', function (ws, req) {
     currentGame = new Game(gameId++, 7);
   }
 
-
-  con.on("message", function(message){
+  con.on("message", function(message) {
     data = JSON.parse(message);
     //console.log(message);
 
     let gameObj = websockets[con.id];
 
-    if(data.type == 'PLAYER_CLICK'){
+    if (data.type == "PLAYER_CLICK") {
       //if(currentTurn ) need to implement
       var col = data.col;
 
       var i;
-      for(i = 0; i < 6; i++){
-        if(gameObj.board[i][col] > 0)
-          break;
+      for (i = 0; i < 6; i++) {
+        if (gameObj.board[i][col] > 0) break;
       }
-      
+
       //i-- so that it goes well with the server board;
-        i--;
-       
-      if(i >= 0){
+      i--;
+
+      if (i >= 0) {
         gameObj.board[i][col] = data.playerid;
         let winner = gameObj.checkWinner(i,col);
         
@@ -106,21 +101,37 @@ wss.on('connection', function (ws, req) {
 
         }
         else {
-        var out = {
+        var animation = {
           type: 'ANIMATION',
           row: i+1,  //+1 because of top ring
           col: data.col,
           color: data.color
         };
 
-        if(gameObj.playerA)
-          gameObj.playerA.send(JSON.stringify(out));
-        if(gameObj.playerB)
-          gameObj.playerB.send(JSON.stringify(out));
+        if (gameObj.playerA) {
+          gameObj.playerA.send(JSON.stringify(animation));
+        }
+        if (gameObj.playerB) {
+          gameObj.playerB.send(JSON.stringify(animation));
+        }
+
+        var enableMouse = {
+          type: "ENABLE_MOUSE"
+        };
+        var disableMouse = {
+          type: "DISABLE_MOUSE"
+        };
+        if (data.playerid == 1) {
+          gameObj.playerA.send(JSON.stringify(disableMouse));
+          gameObj.playerB.send(JSON.stringify(enableMouse));
+        } else {
+          gameObj.playerB.send(JSON.stringify(disableMouse));
+          gameObj.playerA.send(JSON.stringify(enableMouse));
+        }
       }
       }
     }
-  })
+  });
 
   con.on("close", function(code) {
     /*
@@ -162,6 +173,5 @@ wss.on('connection', function (ws, req) {
     //}
   });
 });
-
 
 server.listen(port);

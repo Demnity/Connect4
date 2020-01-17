@@ -3,6 +3,7 @@ class Board {
     this.row = 7;
     this.col = 7;
     this.board = board;
+    console.log(create);
     if(create)
       this.createBoard();
     else 
@@ -33,18 +34,18 @@ class Board {
   }
 
   //DOESNT CHECK COLLISIONl
-  dropAnimation(rowValue,colValue, pColor) {
+  dropAnimation(rowValue, colValue, pColor) {
     //seems like a generic function.
     let col = $("[col=" + colValue + "]");
-  
+
     for (let i = 1; i <= rowValue; i++) {
       let $colNext = $(col[i + 1]);
       let $col = $(col[i]);
-  
+
       //check if col is filled
       //if ($col.css("border-top-color") != "rgb(255, 255, 255)") break;
       let color = $colNext.css("border-top-color");
-  
+
       //check white color
       if (i < rowValue) {
         setTimeout(function() {
@@ -62,6 +63,18 @@ class Board {
       }
     }
     return null;
+  }
+
+  disableMouse() {
+    for (let i = 0; i < this.row; i++) {
+      $(`[row = '${i}']`).addClass("ring-disable");
+    }
+  }
+
+  enableMouse() {
+    for (let i = 0; i < this.row; i++) {
+      $(`[row = '${i}']`).removeClass("ring-disable");
+    }
   }
 }
 

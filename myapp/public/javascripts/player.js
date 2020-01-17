@@ -5,8 +5,22 @@ class Player {
       this.color = color;
       this.id = id;
       this.socket = socket;
+
+      this.setupPage();
       this.ingameListener(this);
       this.mouseListener();
+
+    }
+
+    setupPage(){
+      if(this.id == 1){
+        $("#leftPlayer p").html("You");
+        $("#rightPlayer p").html("Opponent");
+      }
+      else {
+        $("#leftPlayer p").html("Opponent");
+        $("#rightPlayer p").html("You");
+      }
     }
   
     ingameListener(player) {
