@@ -22,12 +22,13 @@ main img {
 }
 
 
+  
 
 button {
 	position: relative;
   	width: 200px;
   	height: 90px;
-  	background-color: #33333d;
+  	background-color: transparent;
   	border: 2px solid white;
   	color: #37efba;
   	padding: auto;
@@ -35,10 +36,27 @@ button {
  	font-size: 4em;
  	font-family: 'Patrick Hand', cursive;
 	cursor: pointer;
-}
+	animation-name: animation;
+	animation-duration: 4s;
+	animation-iteration-count: infinite;
+	animation-timing-function: ease-in-out;
+  }
+  
+  @keyframes animation {
+	from {
+	  background-color: #33333d;
+	}
+	50% {
+	  background-color: #222222;
+	}
+	to {
+	  background-color: #33333d;
+	}
+  }
 
 button:hover {
-	background-color: #222222;
+	animation-play-state: paused;
+	
 }
 
 button:active {
