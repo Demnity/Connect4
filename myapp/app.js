@@ -7,15 +7,21 @@ var indexRouter = require("./routes/index");
 var port = process.argv[2];
 var app = express();
 
+var gameStatus = require("./statTracker");
 var Game = require("./game");
 
-var gameId = 0;
 
-var currentGame = new Game(gameId++, 7);
-
+app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
 
-app.get("/", indexRouter);
+app.get("/", (req, res) => {
+  res.render("splash.ejs", {
+    gamesInitialized: gameStatus.gamesInitialized,
+    usersOnline: gameStatus.usersOnline,
+    ongoingGames: gameStatus.ongoingGames
+  });
+});
+
 app.get("/play", indexRouter);
 
 var server = http.createServer(app);
@@ -39,13 +45,15 @@ setInterval(function() {
 }, 50000);
 /////
 
+var currentGame = new Game(gameStatus.gamesInitialized++, 7);
 var connectionID = 0;
 
 wss.on("connection", function(ws, req) {
-  console.log("Client Joined");
-
+  console.log("Client Joined from " + req.url);
+  
   let con = ws;
   con.id = connectionID++;
+  gameStatus.usersOnline++;
   let playerType = currentGame.addPlayer(con);
   websockets[con.id] = currentGame;
 
@@ -57,7 +65,27 @@ wss.on("connection", function(ws, req) {
   );
 
   if (currentGame.isGameFull) {
-    currentGame = new Game(gameId++, 7);
+    var enableMouse = {
+      type: "ENABLE"
+    };
+    var disableMouse = {
+      type: "DISABLE"
+    };
+
+    var stopLoading = {
+      type: "DISABLE_LOADING"
+    }
+
+    currentGame.playerA.send(JSON.stringify(enableMouse));
+    currentGame.playerB.send(JSON.stringify(disableMouse)); //playerA starts turn
+    currentGame.playerA.send(JSON.stringify(stopLoading));
+    currentGame.playerB.send(JSON.stringify(stopLoading));
+
+    currentGame.setStatus("STARTED");
+
+    gameStatus.ongoingGames++;
+
+    currentGame = new Game(gameStatus.gamesInitialized++, 7);
   }
 
   con.on("message", function(message) {
@@ -149,34 +177,50 @@ wss.on("connection", function(ws, req) {
 
     /////
     gameObj.noPlayer--;
+    gameStatus.usersOnline--;
+
+    if(gameObj.getStatus() == "STARTED"){ //Add all other cases when game started but then stopped.
+      if(gameStatus.ongoingGames != 0)
+        gameStatus.ongoingGames--;
+    }
+
     if(currentGame.isGameFull)
-      currentGame = new Game(gameId++, 7);
+      currentGame = new Game(gameStatus.gamesInitialized++, 7);
     
     /////
 
-    //if (code == "1001") {
+    if (code == "1001") {
     /*
      * if possible, abort the game; if not, the game is already completed
      */
-    gameObj.setStatus("ABORTED");
-    gameObj.isGameFull = false;
+
+      //gameObj.setStatus("ABORTED");
+      gameObj.isGameFull = false;
 
     /*
      * determine whose connection remains open;
      * close it
      */
 
-    if (gameObj.playerA != null) {
-      gameObj.playerA.send(JSON.stringify({ type: "RESTART" }));
-      //gameObj.playerA.close();
-      gameObj.playerA = null;
+      if (gameObj.playerA != null) {
+        if(gameObj.getStatus() == "STARTED")
+        gameObj.playerA.send(JSON.stringify({ type: "ABORTED" }));
+        else if(gameObj.getStatus() == "SEARCHING")
+          delete websockets[con.id];
+        else
+          gameObj.playerA.send(JSON.stringify({ type: "RESTART" })); //This probably wont get executed in our current code
+        gameObj.playerA = null;
+      }
+      if (gameObj.playerB != null) {
+        if(gameObj.getStatus() == "STARTED")
+          gameObj.playerB.send(JSON.stringify({ type: "ABORTED" }));
+        else if(gameObj.getStatus() == "SEARCHING")
+          delete websockets[con.id];
+        else
+          gameObj.playerB.send(JSON.stringify({ type: "RESTART" })); //This probably wont get executed in our current code
+        gameObj.playerB = null;
+      }
     }
-    if (gameObj.playerB != null) {
-      gameObj.playerB.send(JSON.stringify({ type: "RESTART" }));
-      //gameObj.playerB.close();
-      gameObj.playerB = null;
-    }
-    //}
   });
 });
 

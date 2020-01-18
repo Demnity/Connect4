@@ -2,7 +2,16 @@
   <head>
     <meta content="text/html;charset=utf-8" http-equiv="Content-Type" />
     <meta content="utf-8" http-equiv="encoding" />
+    <link rel="stylesheet" href="stylesheets/style.css" />
     <link rel="stylesheet" href="stylesheets/game.css" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Amatic+SC&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Patrick+Hand&display=swap"
+      rel="stylesheet"
+    />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   </head>
   <body>
@@ -26,11 +35,19 @@
       </div>
 
       <section class="gameInfo">
-        <div id="playerTurn">Anyone can go first</div>
-        <div id="timer">10</div>
+        <div id="playerTurn">Waiting for the other player</div>
+        <div id="loading">
+          <div class="ring"></div>
+        </div>
+        <div id="timer"> </div>
       </section>
 
       <div class="wrapper" id="board"></div>
+
+      <div id="easterEgg"></div>
+      <error>Your monitor doesn't have the minimum required resolution.
+        Some elements might not be alligned properly.
+      </error>
     </main>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="javascripts/board.js"></script>

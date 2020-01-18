@@ -6,6 +6,12 @@ class Board {
     console.log(create);
     if (create) this.createBoard();
     else this.clearBoard();
+
+
+    //Disable Mouse in the beginning
+    for (let i = 0; i < this.row; i++) {
+      $(`[row = '${i}']`).addClass("ring-disable");
+    }
     //this.listenMouseEvent();
   }
 
@@ -68,7 +74,7 @@ class Board {
       $(`[row = '${i}']`).addClass("ring-disable");
     }
     //Change #playerTurn color
-    $("#playerTurn").html("Opponent");
+    $("#playerTurn").html("Opponent's Turn");
     if (id == 1) {
       $("#playerTurn").removeClass("player2");
       $("#playerTurn").addClass("player1");
@@ -83,7 +89,7 @@ class Board {
       $(`[row = '${i}']`).removeClass("ring-disable");
     }
     //Change #playerTurn color
-    $("#playerTurn").html("You");
+    $("#playerTurn").html("Your Turn");
     if (id == 1) {
       $("#playerTurn").removeClass("player1");
       $("#playerTurn").addClass("player2");

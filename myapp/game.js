@@ -18,7 +18,7 @@ class Game {
     this.isGameFull = false;
     this.gameStatus = "SEARCHING";
     this.timer = {
-      currentTurn: null,     //CHANGE MAYBE?
+      currentTurn: null,   
       interval: undefined,
       countFrom: time, // second
       count: this.countFrom,

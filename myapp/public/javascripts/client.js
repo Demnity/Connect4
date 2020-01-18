@@ -1,5 +1,7 @@
 var main = function(create) {
   const board = new Board("#board", create);
+  $('#playerTurn').html("Waiting for the other player");
+  $('#loading').css("display", "block");
   const timer = new Timer(20);
   var player;
 
@@ -23,12 +25,21 @@ var main = function(create) {
       } else if (data.id == 2) {
         player = new Player("rgb(48, 207, 160)", "Player 2", 2, socket);
       }
-    } else if (data.type == "ANIMATION") {
+    } 
+    else if (data.type == "ANIMATION") {
       console.log(data);
       board.dropAnimation(data.row, data.col, data.color);
-    } else if (data.type == "DISABLE") {
+    } 
+    else if (data.type == "DISABLE_LOADING"){
+      $('#loading').css("display", "none");
+    }
+    //else if (data.type == "ENABLE_LOADING"){
+     // $('#loading').css("display", "block");
+    //}
+    else if (data.type == "DISABLE") {
       board.disableMouse(player.id);
-    } else if (data.type == "ENABLE") {
+    } 
+    else if (data.type == "ENABLE") {
       board.enableMouse(player.id);
     } 
     else if(data.type == 'RESTART_TIMER'){
@@ -36,9 +47,17 @@ var main = function(create) {
     }
     else if(data.type == 'CLEAR_BOARD'){
       board.clearBoard();
-    } else if (data.type == "RESTART") {
+    } 
+    else if (data.type == "RESTART") {
       socket.close();
-      setTimeout(main(false), 2000);
+      setTimeout(main, 2000, false);
+    }
+    else if (data.type == "ABORTED"){
+      $('#playerTurn').html("Opponent Disconnected, Adding Back To Game Queue");
+      timer.stop();
+      $("#timer").html(" ");
+      socket.close();
+      setTimeout(main, 2000, false);
     }
   };
 };

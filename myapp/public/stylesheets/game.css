@@ -1,5 +1,4 @@
 body {
-  background: #33333d;
   text-align: center;
 }
 
@@ -37,26 +36,19 @@ main {
   color: burlywood !important;
 }
 
-header {
-  overflow: auto;
-}
+
 
 #icon .logo {
   height: 80px;
+  margin-left: 5px;
+  margin-top: 5px;
   float: left;
 }
 
-#icon .home,
-#icon .volume {
-  height: 45px;
-  margin-right: 5px;
-  margin-top: 5px;
-  float: right;
+#icon .logo:hover{
+  cursor: pointer;
 }
 
-main {
-  height: 70%;
-}
 
 #leftPlayer {
   position: relative;
@@ -73,7 +65,7 @@ main {
 #leftPlayer p {
   padding-left: 10px;
   color: white;
-  margin-top: 7%;
+  margin-top: 15%;
   font-family: "Amatic SC", cursive;
   font-size: 1.5em;
   float: right;
@@ -94,7 +86,7 @@ main {
 #rightPlayer p {
   padding-right: 10px;
   color: white;
-  margin-top: 7%;
+  margin-top: 15%;
   font-family: "Amatic SC", cursive;
   font-size: 1.5em;
   float: left;
@@ -107,7 +99,7 @@ main {
 .gameInfo #playerTurn {
   clear: both;
   text-align: center;
-  color: #dabb35;
+  color: #d9c791;
   font-family: "Amatic SC", cursive;
   font-size: 1.5em;
 }
@@ -118,4 +110,38 @@ main {
   padding-top: 5px;
   font-family: "Amatic SC", cursive;
   font-size: 1.5em;
+}
+
+
+#loading {
+  position: absolute;
+  text-align: left;
+  padding-top: 3px;
+  margin-left: 37%;
+  width: 20%;
+}
+
+#loading .ring{
+  animation-name: animation;
+  animation-duration: 7s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+}
+
+@keyframes animation {
+  from {
+    border-color: #dabb35;
+    position: relative;
+    left: 0%;
+  }
+  50% {
+    border-color: #30cfa0;
+    position: relative;
+    left: 100%;
+  }
+  to {
+    border-color: #dabb35;
+    position: relative;
+    left: 0%;
+  }
 }
