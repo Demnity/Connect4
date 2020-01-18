@@ -62,7 +62,7 @@ var main = function(create) {
       $("#timer").html(" ");
       socket.close();
     } else if (data.type == "LOSER") {
-      $("#playerTurn").html("The opponent have won!");
+      $("#playerTurn").html("The opponent has won!");
       timer.stop();
       $("#timer").html(" ");
       socket.close();
