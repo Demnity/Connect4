@@ -51,6 +51,11 @@ var main = function(create) {
       $("#timer").html(" ");
       socket.close();
       setTimeout(main, 2000, false);
+    } else if (data.type == "TIE"){
+      $("#playerTurn").html("The match ended in a tie.");
+      timer.stop();
+      $("#timer").html(" ");
+      socket.close();
     }
   };
 };

@@ -114,12 +114,42 @@ wss.on("connection", function(ws, req) {
       for (i = 0; i < 6; i++) {
         if (gameObj.board[i][col] > 0) break;
       }
-
+      
+      
       //i-- so that it goes well with the server board;
       i--;
 
       if (i >= 0) {
         gameObj.board[i][col] = data.playerid;
+
+        var animation = {
+          type: "ANIMATION",
+          row: i + 1, //+1 because of top ring
+          col: data.col,
+          color: data.color
+        };
+
+        if (gameObj.playerA) {
+          gameObj.playerA.send(JSON.stringify(animation));
+        }
+        if (gameObj.playerB) {
+          gameObj.playerB.send(JSON.stringify(animation));
+        }
+
+        if(i == 0){
+          var j;
+          for(j = 0; j < 7; j++){
+            if(gameObj.board[0][j] == 0){
+              break;
+            }
+          }
+          if(j == 7){
+            gameObj.setStatus("TIE");
+            console.log("GAME TIE");
+          }
+  
+        }
+
         let winner = gameObj.checkWinner(i, col);
 
         if (winner != null) {
@@ -135,20 +165,6 @@ wss.on("connection", function(ws, req) {
           if (gameObj.playerA) gameObj.playerA.send(JSON.stringify(out));
           if (gameObj.playerB) gameObj.playerB.send(JSON.stringify(out));
         } else {
-          var animation = {
-            type: "ANIMATION",
-            row: i + 1, //+1 because of top ring
-            col: data.col,
-            color: data.color
-          };
-
-          if (gameObj.playerA) {
-            gameObj.playerA.send(JSON.stringify(animation));
-          }
-          if (gameObj.playerB) {
-            gameObj.playerB.send(JSON.stringify(animation));
-          }
-
           var enableMouse = {
             type: "ENABLE"
           };
