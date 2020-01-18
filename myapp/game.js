@@ -7,7 +7,7 @@ class Game {
     this.winnerId = null;
     this.board = [
       [0, 0, 0, 0, 0, 0, 0], // ---->colValue
-      [1, 1, 1, 1, 1, 1, 1], //|
+      [0, 0, 0, 0, 0, 0, 0], //|
       [0, 0, 0, 0, 0, 0, 0], //|
       [0, 0, 0, 0, 0, 0, 0], //v
       [0, 0, 0, 0, 0, 0, 0], //rowValue
@@ -32,10 +32,10 @@ class Game {
 
   setStatus(status) {
     this.gameStatus = status;
-    if(status == "TIE"){
+    if (status == "TIE") {
       var msg = {
         type: "TIE"
-      }
+      };
 
       this.playerA.send(JSON.stringify(msg));
       this.playerB.send(JSON.stringify(msg));

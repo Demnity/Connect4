@@ -51,8 +51,18 @@ var main = function(create) {
       $("#timer").html(" ");
       socket.close();
       setTimeout(main, 2000, false);
-    } else if (data.type == "TIE"){
+    } else if (data.type == "TIE") {
       $("#playerTurn").html("The match ended in a tie.");
+      timer.stop();
+      $("#timer").html(" ");
+      socket.close();
+    } else if (data.type == "WINNER") {
+      $("#playerTurn").html("You have won!");
+      timer.stop();
+      $("#timer").html(" ");
+      socket.close();
+    } else if (data.type == "LOSER") {
+      $("#playerTurn").html("The opponent have won!");
       timer.stop();
       $("#timer").html(" ");
       socket.close();
