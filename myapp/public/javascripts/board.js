@@ -93,11 +93,25 @@ class Board {
       $("#playerTurn").addClass("player1");
     }
   }
+
+  winner(gameState, timer, socket) {
+    for (let i = 0; i < this.row; i++) {
+      $(`[row = '${i}']`).addClass("ring-disable");
+    }
+    if (gameState == "win") {
+      $("#playerTurn").html("You have won!");
+    } else if (gameState == "lose") {
+      $("#playerTurn").html("The opponent has won!");
+    } else $("#playerTurn").html("It's a tie :(");
+    timer.stop();
+    $("#timer").html(" ");
+    socket.close();
+  }
 }
 
 class Timer {
   constructor(time, socket) {
-    this.currentTurn = 1;
+    this.currentTurn = 2;
     this.interval = undefined;
     this.countFrom = time; // second
     this.count = this.countFrom;
@@ -109,7 +123,7 @@ class Timer {
       clearInterval(this.interval);
     }
 
-    //this.switchPlayer();
+    this.switchPlayer();
     this.count = this.countFrom;
     $("#timer").html(this.count);
 
