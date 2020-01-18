@@ -31,9 +31,9 @@ var main = function(create) {
     } else if (data.type == "DISABLE_LOADING") {
       $("#loading").css("display", "none");
     }
-    //else if (data.type == "ENABLE_LOADING"){
-    // $('#loading').css("display", "block");
-    //}
+    else if (data.type == "ENABLE_LOADING"){
+     $('#loading').css("display", "block");
+    }
     else if (data.type == "DISABLE") {
       board.disableMouse(player.id);
     } else if (data.type == "ENABLE") {
