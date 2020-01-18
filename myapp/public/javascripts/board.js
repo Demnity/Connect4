@@ -32,10 +32,6 @@ class Board {
     }
   }
 
-  clearBoard() {
-    $("#board .ring").css("border", "8px solid #fff");
-  }
-
   //DOESNT CHECK COLLISIONl
   dropAnimation(rowValue, colValue, pColor) {
     //seems like a generic function.
@@ -149,5 +145,3 @@ class Timer {
 /*$(document).ready(function(){
   const gameBoard = new Board("#board"); 
 });*/
-
-/////////////////////////////////////////////////////////////////////////////

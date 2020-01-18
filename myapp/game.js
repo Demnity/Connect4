@@ -32,10 +32,10 @@ class Game {
 
   setStatus(status) {
     this.gameStatus = status;
-    if(status == "TIE"){
+    if (status == "TIE") {
       var msg = {
         type: "TIE"
-      }
+      };
 
       this.playerA.send(JSON.stringify(msg));
       this.playerB.send(JSON.stringify(msg));
