@@ -1,16 +1,25 @@
-
+@media (max-width: 735px), (max-height: 800px){
   error {
     text-align: center;
+    position: fixed;
     display: block;
     margin-left: 20%;
+    top: 0px;
     width: 60%;
     color: wheat;
     font-family: 'Amatic SC', cursive;
-    background-color: #33333d;
-    font-size: 2em;
+    background-color: transparent;
+    font-size: 1em;
     
   }
 
+}
+@media (min-width: 735px) and (min-height: 800px){
+  error {
+    display: none;
+  }
+
+}
 
 body {
 	background-color: #33333d;
@@ -23,21 +32,19 @@ header {
 
 #easterEgg {
   position: fixed;
+  text-align: center;
   bottom: 0;
-  right: 50%;
-  color: white;
-  margin: auto;
+  width: 100%;
+  display: block;
+  color: white;;
 	font-family: 'Amatic SC', cursive;
-	font-size: 0.7em;
+	font-size: 2em;
 }
 
 #easterEgg::before {
-  content: "yes";
+  content: "The game is over either when you or your opponent reaches four in a row (horizontally, vertially or diagonally), or when all forty two slots are filled, ending in a stalemate.";
 }
 
-#easterEgg :hover {
-  content: "TEST";
-}
 
 
 #icon .info,
