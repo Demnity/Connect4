@@ -7,7 +7,6 @@ class Board {
     if (create) this.createBoard();
     else this.clearBoard();
 
-
     //Disable Mouse in the beginning
     for (let i = 0; i < this.row; i++) {
       $(`[row = '${i}']`).addClass("ring-disable");
@@ -84,7 +83,7 @@ class Board {
     }
   }
 
-  enableMouse(id) {
+  enableMouse(id, timer) {
     for (let i = 0; i < this.row; i++) {
       $(`[row = '${i}']`).removeClass("ring-disable");
     }
@@ -100,12 +99,13 @@ class Board {
   }
 }
 
-class Timer{
-  constructor(time){
-    this.currentTurn = null;
+class Timer {
+  constructor(time, socket) {
+    this.currentTurn = 1;
     this.interval = undefined;
     this.countFrom = time; // second
     this.count = this.countFrom;
+    this.socket = socket;
   }
 
   restart() {
@@ -116,29 +116,15 @@ class Timer{
     //this.switchPlayer();
     this.count = this.countFrom;
     $("#timer").html(this.count);
-    //var msg = {
-    //  type: "RESTART_TIMER",
-    //  count: this.count
-    //}
 
     this.interval = setInterval(this.tick.bind(this), 1000);
-
-    //return msg;
-  }
-
-  setCurrentPlayer(player) {
-    $("#playerTurn")
-      .html("FILLER")
   }
 
   tick() {
     this.count--;
     if (this.count < 0) {
-      if (this.interval) {
-        clearInterval(this.interval);
-      }
-      //this.count = this.countFrom;
-      //this.switchPlayer();
+      this.count = this.countFrom;
+      this.switchPlayer();
     }
     // update the view
     $("#timer").html(this.count);
@@ -146,6 +132,17 @@ class Timer{
 
   stop() {
     clearInterval(this.interval);
+  }
+
+  switchPlayer() {
+    if (this.currentTurn == 1) this.currentTurn = 2;
+    else this.currentTurn = 1;
+    this.socket.send(
+      JSON.stringify({
+        type: "TIMER_SWITCH",
+        currentPlayer: this.currentTurn
+      })
+    );
   }
 }
 
