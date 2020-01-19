@@ -11,7 +11,6 @@ class Board {
     for (let i = 0; i < this.row; i++) {
       $(`[row = '${i}']`).addClass("ring-disable");
     }
-    //this.listenMouseEvent();
   }
 
   createBoard() {

@@ -16,3 +16,7 @@ function toggleSound() {
       $(".volume")[0].src = "images/mute.png";
     });
 }
+
+function fullscreen() {
+  $("body")[0].requestFullscreen();
+}
