@@ -84,18 +84,12 @@ wss.on("connection", function(ws, req) {
 
     let gameObj = websockets[con.id];
     if (data.type == "TIMER_SWITCH") {
-      var enableMouse = {
-        type: "ENABLE"
-      };
-      var disableMouse = {
-        type: "DISABLE"
-      };
       if (data.currentPlayer == 1) {
-        gameObj.playerB.send(JSON.stringify(enableMouse));
-        gameObj.playerA.send(JSON.stringify(disableMouse));
+        gameObj.playerB.send(JSON.stringify({ type: "ENABLE" }));
+        gameObj.playerA.send(JSON.stringify({ type: "DISABLE" }));
       } else {
-        gameObj.playerA.send(JSON.stringify(enableMouse));
-        gameObj.playerB.send(JSON.stringify(disableMouse));
+        gameObj.playerA.send(JSON.stringify({ type: "ENABLE" }));
+        gameObj.playerB.send(JSON.stringify({ type: "DISABLE" }));
       }
     } else if (data.type == "PLAYER_CLICK") {
       //if(currentTurn ) need to implement
@@ -153,12 +147,6 @@ wss.on("connection", function(ws, req) {
             gameObj.playerA.send(JSON.stringify({ type: "LOSER" }));
           }
         } else {
-          var enableMouse = {
-            type: "ENABLE"
-          };
-          var disableMouse = {
-            type: "DISABLE"
-          };
           var restartTimer = {
             type: "RESTART_TIMER",
             count: this.count
@@ -166,11 +154,11 @@ wss.on("connection", function(ws, req) {
           gameObj.playerA.send(JSON.stringify(restartTimer));
           gameObj.playerB.send(JSON.stringify(restartTimer));
           if (data.playerid == 1) {
-            gameObj.playerA.send(JSON.stringify(disableMouse));
-            gameObj.playerB.send(JSON.stringify(enableMouse));
+            gameObj.playerA.send(JSON.stringify({ type: "DISABLE" }));
+            gameObj.playerB.send(JSON.stringify({ type: "ENABLE" }));
           } else {
-            gameObj.playerB.send(JSON.stringify(disableMouse));
-            gameObj.playerA.send(JSON.stringify(enableMouse));
+            gameObj.playerB.send(JSON.stringify({ type: "DISABLE" }));
+            gameObj.playerA.send(JSON.stringify({ type: "ENABLE" }));
           }
         }
       }
