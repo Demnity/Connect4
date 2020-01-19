@@ -30,19 +30,19 @@ header {
 }
 
 
-#easterEgg {
+#info {
   position: fixed;
   text-align: center;
   bottom: 0;
   width: 100%;
-  display: block;
-  color: white;;
+  display: none;
+  color: white;
 	font-family: 'Amatic SC', cursive;
 	font-size: 2em;
 }
 
-#easterEgg::before {
-  content: "The game is over either when you or your opponent reaches four in a row (horizontally, vertially or diagonally), or when all forty two slots are filled, ending in a stalemate.";
+#info::before {
+  content: "The game is over either when you or your opponent reaches four in a row (horizontally, vertically or diagonally), or when all forty two slots are filled, ending in a stalemate.";
 }
 
 
@@ -63,3 +63,5 @@ header {
   height: 60px;
   cursor: pointer;
 }
+
+

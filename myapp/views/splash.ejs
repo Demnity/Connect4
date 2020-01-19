@@ -19,7 +19,7 @@
       <p id="timesVisited">You have visited: 1 time</p>
     </div>
     <div id="icon">
-      <img src="images/info.png" class="info" />
+      <img src="images/info.png" class="info" onclick="toggleInfo()"/>
       <img src="images/volume.png" class="volume" />
     </div>
   </header>
@@ -31,13 +31,14 @@
         <button type="submit">PLAY</button>
       </form>
     </div>
-    <div id="easterEgg"></div>
+    <div id="info"></div>
     <error>Your monitor doesn't have the minimum required resolution.
       Some elements might not be alligned properly.
     </error>
   </main>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="javascripts/cookies.js"></script>
+  <script src="javascripts/buttons.js"></script>
 </body>
 
 </html>
