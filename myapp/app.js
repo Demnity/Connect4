@@ -68,8 +68,6 @@ wss.on("connection", function(ws, req) {
     currentGame.playerB.send(JSON.stringify({ type: "DISABLE" })); //playerA starts turn
     currentGame.playerA.send(JSON.stringify({ type: "DISABLE_LOADING" }));
     currentGame.playerB.send(JSON.stringify({ type: "DISABLE_LOADING" }));
-    currentGame.playerA.send(JSON.stringify({ type: "SOUND" }));
-    currentGame.playerB.send(JSON.stringify({ type: "SOUND" }));
 
     currentGame.setStatus("STARTED");
 

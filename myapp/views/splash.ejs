@@ -1,44 +1,56 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <title>Connect 4</title>
+    <link rel="stylesheet" type="text/css" href="stylesheets/style.css" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/splash.css" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Amatic+SC&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Patrick+Hand&display=swap"
+      rel="stylesheet"
+    />
+  </head>
 
-<head>
-  <title>Connect 4</title>
-  <link rel="stylesheet" type="text/css" href="stylesheets/style.css" />
-  <link rel="stylesheet" type="text/css" href="stylesheets/splash.css" />
-  <link href="https://fonts.googleapis.com/css?family=Amatic+SC&display=swap" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/css?family=Patrick+Hand&display=swap" rel="stylesheet" />
+  <body>
+    <header>
+      <div class="stat">
+        <p>Users ingame: <%= usersOnline %></p>
+        <p>Ongoing games: <%= ongoingGames %></p>
+        <p>Games started: <%= gamesInitialized - 1%></p>
+        <p id="timesVisited">You have visited: 1 time</p>
+      </div>
+      <div id="icon">
+        <img src="images/info.png" class="info" onclick="toggleInfo()" />
+        <img src="images/volume.png" class="volume" onclick="toggleSound()" />
+      </div>
+    </header>
 
-</head>
-
-<body>
-  <header>
-    <div class="stat">
-      <p>Users ingame: <%= usersOnline %></p>
-      <p>Ongoing games: <%= ongoingGames %></p>
-      <p>Games started: <%= gamesInitialized - 1%></p>
-      <p id="timesVisited">You have visited: 1 time</p>
-    </div>
-    <div id="icon">
-      <img src="images/info.png" class="info" onclick="toggleInfo()"/>
-      <img src="images/volume.png" class="volume" />
-    </div>
-  </header>
-
-  <main>
-    <img src="images/logo.png" onclick="location.href = '/';"/>
-    <div class="button">
-      <form action="/play" method="GET">
-        <button type="submit">PLAY</button>
-      </form>
-    </div>
-    <div id="info"></div>
-    <error>Your monitor doesn't have the minimum required resolution.
-      Some elements might not be alligned properly.
-    </error>
-  </main>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <script src="javascripts/cookies.js"></script>
-  <script src="javascripts/buttons.js"></script>
-</body>
-
+    <main>
+      <img src="images/logo.png" onclick="location.href = '/';" />
+      <div class="button">
+        <form action="/play" method="GET">
+          <button type="submit">PLAY</button>
+        </form>
+      </div>
+      <div id="info"></div>
+      <error
+        >Your monitor doesn't have the minimum required resolution. Some
+        elements might not be alligned properly.
+      </error>
+    </main>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="javascripts/cookies.js"></script>
+    <script src="javascripts/buttons.js"></script>
+    <audio
+      src="sounds/looper.mp3"
+      preload="auto"
+      controls="none"
+      loop=""
+      style="display: none;"
+      autoplay
+    ></audio>
+  </body>
 </html>

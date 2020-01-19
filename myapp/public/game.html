@@ -18,10 +18,18 @@
   <body>
     <header>
       <div id="icon">
-        <img src="images/logo.png" class="logo" onclick="location.href = '/';"/>
-        <img src="images/home.png" class="home" onclick="location.href = '/';" />
+        <img
+          src="images/logo.png"
+          class="logo"
+          onclick="location.href = '/';"
+        />
+        <img
+          src="images/home.png"
+          class="home"
+          onclick="location.href = '/';"
+        />
         <img src="images/info.png" class="info" onclick="toggleInfo()" />
-        <img src="images/volume.png" class="volume" />
+        <img src="images/volume.png" class="volume" onclick="toggleSound()" />
       </div>
     </header>
 
@@ -41,14 +49,15 @@
         <div id="loading">
           <div class="ring"></div>
         </div>
-        <div id="timer"> </div>
+        <div id="timer"></div>
       </section>
 
       <div class="wrapper" id="board"></div>
 
       <div id="info"></div>
-      <error>Your monitor doesn't have the minimum required resolution.
-        Some elements might not be alligned properly.
+      <error
+        >Your monitor doesn't have the minimum required resolution. Some
+        elements might not be alligned properly.
       </error>
     </main>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -56,5 +65,13 @@
     <script src="javascripts/player.js"></script>
     <script src="javascripts/client.js"></script>
     <script src="javascripts/buttons.js"></script>
+    <audio
+      src="sounds/looper.mp3"
+      preload="auto"
+      controls="none"
+      loop=""
+      style="display: none;"
+      autoplay
+    ></audio>
   </body>
 </html>

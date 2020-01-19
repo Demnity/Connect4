@@ -57,8 +57,6 @@ var main = function(create) {
       board.winner("win", timer, socket);
     } else if (data.type == "LOSER") {
       board.winner("lose", timer, socket);
-    } else if (data.type == "SOUND") {
-      new Sound("sounds/looper.mp3").loop();
     }
   };
 };
