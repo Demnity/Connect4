@@ -156,7 +156,7 @@ main {
 
 :not(:root):fullscreen::backdrop {
   position: fixed;
-  background-image: url("/images/thelastthingiwilleverdoforthis.jpg");
+  background-image: url("/images/mindblown.gif");
   background-size: 100%;
   background-repeat: no-repeat;
 }
