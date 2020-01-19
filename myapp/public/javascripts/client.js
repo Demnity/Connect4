@@ -48,7 +48,7 @@ var main = function(create) {
     } else if (data.type == "ABORTED") {
       $("#playerTurn").html("Opponent Disconnected, Adding Back To Game Queue");
       timer.stop();
-      $("#timer").html(" ");
+      $("#timer").html(" ");   //thats a different kinda space (ALT+0160)
       socket.close();
       setTimeout(main, 2000, false);
     } else if (data.type == "TIE") {
