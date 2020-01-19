@@ -17,12 +17,18 @@
     display: none;
   }
 }
+<<<<<<< HEAD
 
 
 html {
   height: 100%;
 }
 
+=======
+html {
+  height: 100%;
+}
+>>>>>>> 68cd4c4c484f37f35c0c1a82b0d0db154e0ba478
 body {
   background-image: linear-gradient(to top, #004c49 0%, #000000 100%);
 }
