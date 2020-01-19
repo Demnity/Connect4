@@ -89,7 +89,7 @@ wss.on("connection", function(ws, req) {
         gameObj.playerA.send(JSON.stringify({ type: "ENABLE" }));
         gameObj.playerB.send(JSON.stringify({ type: "DISABLE" }));
       }
-    } else if (data.type == "PLAYER_CLICK") {
+    } else if (data.type == "PLAYER_CLICK" && data.col >= 0 && data.col <= 6) {
       //if(currentTurn ) need to implement
       var col = data.col;
 
