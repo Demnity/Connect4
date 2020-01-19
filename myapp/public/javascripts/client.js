@@ -1,5 +1,6 @@
 var main = function(create) {
   const board = new Board("#board", create);
+  const dropSound = new Sound("drop.wav");
   $("#playerTurn").html("Waiting for the other player");
   $("#loading").css("display", "block");
   var player;
@@ -28,13 +29,12 @@ var main = function(create) {
     } else if (data.type == "ANIMATION") {
       console.log(data);
       board.dropAnimation(data.row, data.col, data.color);
+      dropSound.play();
     } else if (data.type == "DISABLE_LOADING") {
       $("#loading").css("display", "none");
-    }
-    else if (data.type == "ENABLE_LOADING"){
-     $('#loading').css("display", "block");
-    }
-    else if (data.type == "DISABLE") {
+    } else if (data.type == "ENABLE_LOADING") {
+      $("#loading").css("display", "block");
+    } else if (data.type == "DISABLE") {
       board.disableMouse(player.id);
     } else if (data.type == "ENABLE") {
       board.enableMouse(player.id, timer);
@@ -57,6 +57,8 @@ var main = function(create) {
       board.winner("win", timer, socket);
     } else if (data.type == "LOSER") {
       board.winner("lose", timer, socket);
+    } else if (data.type == "SOUND") {
+      new Sound("looper.mp3").loop();
     }
   };
 };

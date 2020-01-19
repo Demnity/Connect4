@@ -64,21 +64,12 @@ wss.on("connection", function(ws, req) {
   );
 
   if (currentGame.isGameFull) {
-    var enableMouse = {
-      type: "ENABLE"
-    };
-    var disableMouse = {
-      type: "DISABLE"
-    };
-
-    var stopLoading = {
-      type: "DISABLE_LOADING"
-    };
-
-    currentGame.playerA.send(JSON.stringify(enableMouse));
-    currentGame.playerB.send(JSON.stringify(disableMouse)); //playerA starts turn
-    currentGame.playerA.send(JSON.stringify(stopLoading));
-    currentGame.playerB.send(JSON.stringify(stopLoading));
+    currentGame.playerA.send(JSON.stringify({ type: "ENABLE" }));
+    currentGame.playerB.send(JSON.stringify({ type: "DISABLE" })); //playerA starts turn
+    currentGame.playerA.send(JSON.stringify({ type: "DISABLE_LOADING" }));
+    currentGame.playerB.send(JSON.stringify({ type: "DISABLE_LOADING" }));
+    currentGame.playerA.send(JSON.stringify({ type: "SOUND" }));
+    currentGame.playerB.send(JSON.stringify({ type: "SOUND" }));
 
     currentGame.setStatus("STARTED");
 

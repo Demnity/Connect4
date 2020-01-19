@@ -156,6 +156,26 @@ class Timer {
   }
 }
 
-/*$(document).ready(function(){
-  const gameBoard = new Board("#board"); 
-});*/
+class Sound {
+  constructor(src) {
+    this.sound = document.createElement("audio");
+    this.sound.src = src;
+    this.sound.setAttribute("preload", "auto");
+    this.sound.setAttribute("controls", "none");
+    this.sound.style.display = "none";
+    document.body.appendChild(this.sound);
+    this.interval = undefined;
+  }
+
+  stop() {
+    this.sound.pause();
+  }
+
+  play() {
+    this.sound.play();
+  }
+  loop() {
+    this.play();
+    this.sound.loop = true;
+  }
+}
