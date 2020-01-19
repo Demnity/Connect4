@@ -1,64 +1,60 @@
 .stat {
-	float: left;
+  float: left;
 }
 
 .stat p {
-	color: white;
-	margin: auto;
-	font-family: 'Amatic SC', cursive;
-	font-size: 1.5em;
-	padding-left: 10px;
+  color: white;
+  margin: auto;
+  font-family: "Amatic SC", cursive;
+  font-size: 1.5em;
+  padding-left: 10px;
 }
 main img {
-	height: 350px;
-	display: block;
-	margin: auto;
-	margin-top: 50px;
+  height: 350px;
+  display: block;
+  margin: auto;
+  margin-top: 50px;
 }
 
 .button {
-	text-align: center;
-	margin-top: 50px;
+  text-align: center;
+  margin-top: 50px;
 }
 
-
-  
-
 button {
-	position: relative;
-  	width: 200px;
-  	height: 90px;
-  	background-color: transparent;
-  	border: 2px solid white;
-  	color: #37efba;
-  	padding: auto;
-  	text-align: center;
- 	font-size: 4em;
- 	font-family: 'Patrick Hand', cursive;
-	cursor: pointer;
-	animation-name: animation;
-	animation-duration: 4s;
-	animation-iteration-count: infinite;
-	animation-timing-function: ease-in-out;
+  position: relative;
+  width: 200px;
+  height: 90px;
+  background-color: transparent;
+  border: 2px solid white;
+  color: #37efba;
+  padding: auto;
+  text-align: center;
+  font-size: 4em;
+  font-family: "Patrick Hand", cursive;
+  cursor: pointer;
+  animation-name: animation;
+  animation-duration: 4s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+}
+
+@keyframes animation {
+  from {
+    background-color: #33333d;
   }
-  
-  @keyframes animation {
-	from {
-	  background-color: #33333d;
-	}
-	50% {
-	  background-color: #222222;
-	}
-	to {
-	  background-color: #33333d;
-	}
+  50% {
+    background-color: #222222;
   }
+  to {
+    background-color: #33333d;
+  }
+}
 
 button:hover {
-	animation-play-state: paused;
-	
+  animation-play-state: paused;
 }
 
 button:active {
-	background-color: #191919;
+  background-color: #191919;
 }

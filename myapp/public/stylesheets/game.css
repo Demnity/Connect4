@@ -36,8 +36,6 @@ main {
   color: burlywood !important;
 }
 
-
-
 #icon .logo {
   height: 80px;
   margin-left: 5px;
@@ -45,10 +43,9 @@ main {
   float: left;
 }
 
-#icon .logo:hover{
+#icon .logo:hover {
   cursor: pointer;
 }
-
 
 #leftPlayer {
   position: relative;
@@ -112,7 +109,6 @@ main {
   font-size: 1.5em;
 }
 
-
 #loading {
   position: absolute;
   text-align: left;
@@ -121,7 +117,7 @@ main {
   width: 20%;
 }
 
-#loading .ring{
+#loading .ring {
   animation-name: animation;
   animation-duration: 7s;
   animation-iteration-count: infinite;

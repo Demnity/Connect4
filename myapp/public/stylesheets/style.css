@@ -1,4 +1,4 @@
-@media (max-width: 735px), (max-height: 800px){
+@media (max-width: 735px), (max-height: 800px) {
   error {
     text-align: center;
     position: fixed;
@@ -7,28 +7,24 @@
     top: 0px;
     width: 60%;
     color: wheat;
-    font-family: 'Amatic SC', cursive;
+    font-family: "Amatic SC", cursive;
     background-color: transparent;
     font-size: 1em;
-    
   }
-
 }
-@media (min-width: 735px) and (min-height: 800px){
+@media (min-width: 735px) and (min-height: 800px) {
   error {
     display: none;
   }
-
 }
 
 body {
-	background-color: #33333d;
+  background-image: linear-gradient(to top, #004c49 0%, #000000 100%);
 }
 
 header {
-	overflow: auto;
+  overflow: auto;
 }
-
 
 #info {
   position: fixed;
@@ -37,15 +33,13 @@ header {
   width: 100%;
   display: none;
   color: white;
-	font-family: 'Amatic SC', cursive;
-	font-size: 2em;
+  font-family: "Amatic SC", cursive;
+  font-size: 2em;
 }
 
 #info::before {
   content: "The game is over either when you or your opponent reaches four in a row (horizontally, vertically or diagonally), or when all forty two slots are filled, ending in a stalemate.";
 }
-
-
 
 #icon .info,
 #icon .home,
@@ -63,5 +57,3 @@ header {
   height: 60px;
   cursor: pointer;
 }
-
-
