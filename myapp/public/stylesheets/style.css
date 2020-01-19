@@ -17,7 +17,9 @@
     display: none;
   }
 }
-
+html {
+  height: 100%;
+}
 body {
   background-image: linear-gradient(to top, #004c49 0%, #000000 100%);
 }
