@@ -1,6 +1,6 @@
 var main = function(create) {
   const board = new Board("#board", create);
-  const dropSound = new Sound("drop.wav");
+  const dropSound = new Sound("sounds/drop.wav");
   $("#playerTurn").html("Waiting for the other player");
   $("#loading").css("display", "block");
   var player;
@@ -58,7 +58,7 @@ var main = function(create) {
     } else if (data.type == "LOSER") {
       board.winner("lose", timer, socket);
     } else if (data.type == "SOUND") {
-      new Sound("looper.mp3").loop();
+      new Sound("sounds/looper.mp3").loop();
     }
   };
 };
