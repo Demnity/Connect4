@@ -113,12 +113,13 @@ class Board {
 }
 
 class Timer {
-  constructor(time, socket) {
+  constructor(time, socket, board) {
     this.currentTurn = 2;
     this.interval = undefined;
     this.countFrom = time; // second
     this.count = this.countFrom;
     this.socket = socket;
+    this.board = board;
   }
 
   restart() {
@@ -137,7 +138,7 @@ class Timer {
     this.count--;
     if (this.count < 0) {
       this.count = this.countFrom;
-      this.switchPlayer();
+      
     }
     // update the view
     $("#timer").html(this.count);
@@ -148,14 +149,14 @@ class Timer {
   }
 
   switchPlayer() {
-    if (this.currentTurn == 1) this.currentTurn = 2;
-    else this.currentTurn = 1;
-    this.socket.send(
-      JSON.stringify({
-        type: "TIMER_SWITCH",
-        currentPlayer: this.currentTurn
-      })
-    );
+    if (this.currentTurn == 1) {
+      this.board.enableMouse(2);
+      this.currentTurn = 2;
+    }
+    else {
+      this.board.enableMouse(1);
+      this.currentTurn = 1;
+    }
   }
 }
 

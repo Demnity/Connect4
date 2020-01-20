@@ -5,6 +5,7 @@ class Game {
     this.playerA = null;
     this.playerB = null;
     this.winnerId = null;
+    this.gameTimer = new Timer(5);
     this.board = [
       [0, 0, 0, 0, 0, 0, 0], // ---->colValue
       [0, 0, 0, 0, 0, 0, 0], //|
@@ -171,6 +172,54 @@ class Game {
     }
 
     return null;
+  }
+}
+
+class Timer {
+  constructor(time) {
+    this.currentTurn = 2;
+    this.interval = undefined;
+    this.countFrom = time; // second
+    this.count = this.countFrom;
+    this.gameObj = null;
+  }
+
+  restart(gameObj) {
+    this.gameObj = gameObj;
+    if (this.interval) {
+      clearInterval(this.interval);
+    }
+
+    this.switchPlayer();
+    this.count = this.countFrom;
+
+    this.interval = setInterval(this.tick.bind(this), 1000);
+  }
+
+  tick() {
+    this.count--;
+    if (this.count < 0) {
+      this.count = this.countFrom;
+      this.switchPlayer();
+    }
+
+  }
+
+  stop() {
+    clearInterval(this.interval);
+  }
+
+  switchPlayer() {
+    if (this.currentTurn == 1) this.currentTurn = 2;
+    else this.currentTurn = 1;
+
+    if (this.currentTurn == 1) {
+      this.gameObj.playerB.send(JSON.stringify({ type: "ENABLE" }));
+      this.gameObj.playerA.send(JSON.stringify({ type: "DISABLE" }));
+    } else {
+      this.gameObj.playerA.send(JSON.stringify({ type: "ENABLE" }));
+      this.gameObj.playerB.send(JSON.stringify({ type: "DISABLE" }));
+    }
   }
 }
 

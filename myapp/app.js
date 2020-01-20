@@ -151,6 +151,8 @@ wss.on("connection", function(ws, req) {
           };
           gameObj.playerA.send(JSON.stringify(restartTimer));
           gameObj.playerB.send(JSON.stringify(restartTimer));
+          gameObj.gameTimer.restart(gameObj);    //essentially start?
+
           if (data.playerid == 1) {
             gameObj.playerA.send(JSON.stringify({ type: "DISABLE" }));
             gameObj.playerB.send(JSON.stringify({ type: "ENABLE" }));
@@ -174,6 +176,7 @@ wss.on("connection", function(ws, req) {
 
     /////
     gameObj.noPlayer--;
+    gameObj.gameTimer.stop();
     gameStatus.usersOnline--;
 
     if (gameObj.getStatus() == "STARTED") {

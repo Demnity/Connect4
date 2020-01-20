@@ -7,7 +7,7 @@ var main = function(create) {
 
   //THIS SHIT IS THE CLIENT VVVVVVVVVVVVV DONT FORGET
   var socket = new WebSocket("ws://localhost:3000");
-  const timer = new Timer(5, socket);
+  const timer = new Timer(5, socket, board);
   socket.onopen = function() {
     socket.send(
       JSON.stringify({
